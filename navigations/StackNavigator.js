@@ -10,7 +10,7 @@ import DetailsTrip from "../components/Trips/DetailsTrip";
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="DetailsTrip">
+    <Stack.Navigator initialRouteName="TripList">
       <Stack.Screen
         name="Home"
         options={{ headerShown: false }}
