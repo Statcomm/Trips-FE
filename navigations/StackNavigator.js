@@ -6,11 +6,12 @@ import TripList from "../components/Trips/TripList";
 import Signin from "../components/User/Signin";
 import SignUp from "../components/User/SignUp";
 import DetailsTrip from "../components/Trips/DetailsTrip";
+import SignOutBtn from "../components/button/SignOutBtn";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="TripList">
+    <Stack.Navigator screenOptions={{ headerRight: () => <SignOutBtn /> }}>
       <Stack.Screen
         name="Home"
         options={{ headerShown: false }}
@@ -18,19 +19,18 @@ const StackNavigator = () => {
       />
       <Stack.Screen
         name="DetailsTrip"
-        options={{ headerShown: false }}
+        options={({ route }) => (
+          {
+            headerTitle: route.params.trip.name,
+          },
+          { headerShown: false }
+        )}
         component={DetailsTrip}
       />
-      <Stack.Screen name="TripList" component={TripList} />
       <Stack.Screen
-        name="Signin"
-        options={{ headerTitle: "Sign In" }}
-        component={Signin}
-      />
-      <Stack.Screen
-        name="SignUp"
-        options={{ headerTitle: "Sign Up" }}
-        component={SignUp}
+        name="TripList"
+        component={TripList}
+        options={{ headerTitle: "Our Trips" }}
       />
     </Stack.Navigator>
   );

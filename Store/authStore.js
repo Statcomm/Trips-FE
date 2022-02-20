@@ -37,7 +37,7 @@ class AuthStore {
         title: "hello",
         status: "info",
       });
-      navigation.replace("Home");
+      navigation.navigate("TripList");
     } catch (error) {
       console.log(error);
     }

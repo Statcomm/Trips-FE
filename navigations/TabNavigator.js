@@ -3,22 +3,71 @@ import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TripList from "../components/Trips/TripList";
+import AddTripFrom from "../components/Trips/AddTripFrom";
+import SignUp from "../components/User/SignUp";
+import Signin from "../components/User/Signin";
+import Profile from "../components/Profile/Profile";
+import StackNavigator from "./StackNavigator";
+import authstore from "../Store/authStore";
+import { observer } from "mobx-react";
+import SignOutBtn from "../components/button/SignOutBtn";
+
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{ headerRight: () => <SignOutBtn /> }}>
+      <Tab.Screen
+        name="Home"
+        component={StackNavigator}
+        options={{
+          headerShown: false,
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
       <Tab.Screen
         name="TripList"
         options={{
-          tabBarLabel: "Home",
+          headerTitle: "Our Trips",
+          tabBarLabel: "TripList",
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
         }}
         component={TripList}
       />
+      <Tab.Screen
+        name="Add New Trip"
+        options={{
+          tabBarItemStyle: authstore.user ? true : false,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="plus" color={color} size={size} />
+          ),
+        }}
+        component={AddTripFrom}
+      />
+      <Tab.Screen
+        name="Sign Up"
+        options={{
+          headerTitle: "",
+          tabBarLabel: authstore.user ? "Profile" : "Sign Up",
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+        component={authstore.user ? Profile : SignUp}
+      />
+      <Tab.Screen
+        name="Signin"
+        component={Signin}
+        options={{
+          headerTitle: "",
+          tabBarShowLabel: false,
+          tabBarItemStyle: { display: "none" },
+          tabBarIconStyle: { display: "none" },
+        }}
+      />
     </Tab.Navigator>
   );
 };
-export default TabNavigator;
+export default observer(TabNavigator);
 const styles = StyleSheet.create({});

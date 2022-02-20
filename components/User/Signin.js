@@ -1,17 +1,24 @@
 import React, { useState } from "react";
-import { Button, Input } from "native-base";
+import { Button, Input, Spinner, useToast } from "native-base";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 
-const Signin = () => {
+const Signin = ({ navigation }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
-  const handleUsername = () => {};
-  const handlePassword = () => {};
-
+  const handleUsername = (event) => {
+    setUser({ ...user, username: event });
+  };
+  const handlePassword = (event) => {
+    setUser({ ...user, password: event });
+  };
+  const toast = useToast();
+  if (authstore.loading) {
+    <Spinner />;
+  }
   return (
     <View>
       <ScrollView>
@@ -35,7 +42,10 @@ const Signin = () => {
             onChangeText={handlePassword}
           />
         </View>
-        <Button style={styles.signBtn} onPress={() => authstore.signIn(user)}>
+        <Button
+          style={styles.signBtn}
+          onPress={() => authstore.signIn(user, navigation, toast)}
+        >
           Sign In
         </Button>
       </ScrollView>

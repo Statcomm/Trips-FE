@@ -3,30 +3,31 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Avatar, Flex, ScrollView } from "native-base";
 
-const DetailsTrip = () => {
+const DetailsTrip = ({ route }) => {
+  const trip = route.params.trip;
+  console.log(route);
+
   return (
     <SafeAreaView>
       <ScrollView>
         <View>
           <Image
             source={{
-              uri: "https://static.onecms.io/wp-content/uploads/sites/28/2021/02/11/chicago-illinois-CHITG0221.jpg",
+              uri: trip.image,
             }}
             style={styles.detailimage}
           />
-          <Text style={styles.detailtitles}>Chicago, USA:</Text>
+          <Text style={styles.detailtitles}>{trip.title}</Text>
           <View style={styles.detailsavatar}>
             <Avatar
               borderWidth={1}
               source={{
-                uri: "https://static.toiimg.com/thumb/resizemode-4,msid-76729750,imgsize-249247,width-720/76729750.jpg",
+                uri: trip.owner.image,
               }}
             />
-            <Text style={styles.detailsubtitles}>Offered by USERNAME:</Text>
+            <Text style={styles.detailsubtitles}>{trip.owner.username}</Text>
           </View>
-          <Text style={styles.detaildescription}>
-            ipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsumipsumlopsum
-          </Text>
+          <Text style={styles.detaildescription}>{trip.description}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

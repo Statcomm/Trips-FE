@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
         <Text style={styles.homeTitle}>Welcome To Compass</Text>
 
         <Button
-          onPress={() => navigation.navigate("TripList")}
+          onPress={() => navigation.replace("TripList")}
           style={styles.homebtn}
         >
           Let's Get Started

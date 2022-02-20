@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Input } from "native-base";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
+import { useNavigation } from "@react-navigation/native";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -27,12 +28,20 @@ const SignUp = () => {
   const handleDescrip = (event) => {
     setUser({ ...user, description: event });
   };
-
+  // const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={styles.TitleCont}>
         <Text style={styles.signupTitle}>Sign Up</Text>
-        <Text style={styles.subtitle}>I already have an Account</Text>
+        <Text style={styles.subtitle}>
+          I already have an{" "}
+          <Text
+            style={styles.account}
+            onPress={() => navigation.navigate("Signin")}
+          >
+            Account{" "}
+          </Text>
+        </Text>
       </View>
       <View style={styles.form}>
         <Text style={styles.label}>
@@ -61,7 +70,6 @@ const SignUp = () => {
         <Input h={10} borderColor={"black"} onChangeText={handleImage} />
 
         <Text style={styles.label}>
-          {" "}
           <Icon name="file-text" /> Description:
         </Text>
         <Input h={120} borderColor={"black"} onChangeText={handleDescrip} />
@@ -79,6 +87,10 @@ const styles = StyleSheet.create({
   signupTitle: {
     fontWeight: "bold",
     fontSize: 30,
+  },
+  account: {
+    color: "#085E7D",
+    fontWeight: "bold",
   },
   TitleCont: {
     display: "flex",
