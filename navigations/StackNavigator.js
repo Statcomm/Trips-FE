@@ -5,15 +5,21 @@ import Home from "../components/Home";
 import TripList from "../components/Trips/TripList";
 import Signin from "../components/User/Signin";
 import SignUp from "../components/User/SignUp";
+import DetailsTrip from "../components/Trips/DetailsTrip";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="SignUp">
+    <Stack.Navigator initialRouteName="DetailsTrip">
       <Stack.Screen
         name="Home"
         options={{ headerShown: false }}
         component={Home}
+      />
+      <Stack.Screen
+        name="DetailsTrip"
+        options={{ headerShown: false }}
+        component={DetailsTrip}
       />
       <Stack.Screen name="TripList" component={TripList} />
       <Stack.Screen
