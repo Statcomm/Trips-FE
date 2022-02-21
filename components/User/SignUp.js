@@ -29,10 +29,16 @@ const SignUp = ({ navigation }) => {
   const handleDescrip = (event) => {
     setUser({ ...user, description: event });
   };
+
+  const handleSign = () => {
+    authstore.signUp(user, profile, navigation, toast);
+  };
+
   const toast = useToast();
   if (authstore.loading) {
     <Spinner />;
   }
+
   // const navigation = useNavigation();
   return (
     <ScrollView>
@@ -79,10 +85,7 @@ const SignUp = ({ navigation }) => {
         </Text>
         <Input h={120} borderColor={"black"} onChangeText={handleDescrip} />
       </View>
-      <Button
-        style={styles.signBtn}
-        onPress={() => authstore.signUp(user, navigation, toast)}
-      >
+      <Button style={styles.signBtn} onPress={handleSign}>
         Sign Up
       </Button>
     </ScrollView>

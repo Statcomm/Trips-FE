@@ -8,6 +8,9 @@ const TripList = ({ navigation }) => {
   const tripList = tripStore.trips.map((trip) => (
     <TripItem trip={trip} key={trip._id} navigation={navigation} />
   ));
+  if (tripStore.loading) {
+    <Text>Loading</Text>;
+  }
   return (
     <View>
       <ScrollView alwaysBounceVertical={true}>{tripList}</ScrollView>

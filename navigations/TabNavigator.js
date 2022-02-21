@@ -11,6 +11,7 @@ import StackNavigator from "./StackNavigator";
 import authstore from "../Store/authStore";
 import { observer } from "mobx-react";
 import SignOutBtn from "../components/button/SignOutBtn";
+import UpdateTripFrom from "../components/Trips/UpdateTripFrom";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -46,6 +47,7 @@ const TabNavigator = () => {
         }}
         component={AddTripFrom}
       />
+
       <Tab.Screen
         name="Sign Up"
         options={{

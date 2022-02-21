@@ -19,17 +19,19 @@ const deviceWidth = Dimensions.get("window").width;
 const TripItem = ({ trip, navigation }) => {
   return (
     <SafeAreaView>
-      <View style={styles.owner}>
-        <Avatar
-          w={7}
-          h={7}
-          borderWidth={1}
-          source={{
-            uri: trip.owner.image,
-          }}
-        />
-        <Text style={styles.ownerText}>{trip.owner.username}</Text>
-      </View>
+      <Pressable>
+        <View style={styles.owner}>
+          <Avatar
+            w={7}
+            h={7}
+            borderWidth={1}
+            source={{
+              uri: trip.owner.image,
+            }}
+          />
+          <Text style={styles.ownerText}>{trip.owner.username}</Text>
+        </View>
+      </Pressable>
       <Pressable
         onPress={() => navigation.navigate("DetailsTrip", { trip: trip })}
       >

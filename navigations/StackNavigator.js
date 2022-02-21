@@ -8,6 +8,7 @@ import SignUp from "../components/User/SignUp";
 import DetailsTrip from "../components/Trips/DetailsTrip";
 import SignOutBtn from "../components/button/SignOutBtn";
 import Profile from "../components/Profile/Profile";
+import UpdateTripFrom from "../components/Trips/UpdateTripFrom";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -32,6 +33,16 @@ const StackNavigator = () => {
         name="TripList"
         component={TripList}
         options={{ headerTitle: "Our Trips" }}
+      />
+      <Stack.Screen
+        name="UpdateTrip"
+        component={UpdateTripFrom}
+        options={({ route }) => (
+          {
+            headerTitle: route.params.tripId.name,
+          },
+          { headerTitle: "" }
+        )}
       />
     </Stack.Navigator>
   );

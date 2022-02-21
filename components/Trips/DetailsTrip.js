@@ -1,16 +1,28 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Avatar, ScrollView, useToast } from "native-base";
+import { Avatar, ScrollView, Spinner, useToast } from "native-base";
 import Icon from "react-native-vector-icons/AntDesign";
 import tripStore from "../../Store/tripStore";
 import authstore from "../../Store/authStore";
+import { observer } from "mobx-react";
 
 const DetailsTrip = ({ route, navigation }) => {
   const trip = route.params.trip;
 
   const toast = useToast();
   //TODO Spinner For fetching
+  if (tripStore.loading) {
+    <View
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Spinner />
+    </View>;
+  }
   return (
     <SafeAreaView>
       <ScrollView>
@@ -32,7 +44,7 @@ const DetailsTrip = ({ route, navigation }) => {
               }}
             />
             <Text style={styles.detailsubtitles}>{trip.owner.username}</Text>
-            {authstore.user && (
+            {authstore.user && authstore.user.id === trip.owner._id && (
               <View style={styles.addUpdate}>
                 <View style={styles.btn}>
                   <Icon.Button
@@ -44,8 +56,12 @@ const DetailsTrip = ({ route, navigation }) => {
                     backgroundColor="red"
                   />
                 </View>
+
                 <View style={styles.btn}>
                   <Icon.Button
+                    onPress={() => {
+                      navigation.navigate("UpdateTrip", { tripId: trip });
+                    }}
                     marginLeft={5}
                     name="edit"
                     backgroundColor="green"
@@ -63,7 +79,7 @@ const DetailsTrip = ({ route, navigation }) => {
   );
 };
 
-export default DetailsTrip;
+export default observer(DetailsTrip);
 
 const styles = StyleSheet.create({
   detailimage: {
