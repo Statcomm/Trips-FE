@@ -14,11 +14,15 @@ const Signin = ({ navigation }) => {
   };
   const handlePassword = (event) => {
     setUser({ ...user, password: event });
+    setUser({ username: "", password: "" });
   };
   const toast = useToast();
   if (authstore.loading) {
     <Spinner />;
   }
+  const handleSign = () => {
+    authstore.signIn(user, navigation, toast);
+  };
   return (
     <View>
       <ScrollView>
@@ -42,10 +46,7 @@ const Signin = ({ navigation }) => {
             onChangeText={handlePassword}
           />
         </View>
-        <Button
-          style={styles.signBtn}
-          onPress={() => authstore.signIn(user, navigation, toast)}
-        >
+        <Button style={styles.signBtn} onPress={handleSign}>
           Sign In
         </Button>
       </ScrollView>
