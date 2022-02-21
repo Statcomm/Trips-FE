@@ -14,7 +14,6 @@ const Signin = ({ navigation }) => {
   };
   const handlePassword = (event) => {
     setUser({ ...user, password: event });
-    setUser({ username: "", password: "" });
   };
   const toast = useToast();
   if (authstore.loading) {
@@ -22,6 +21,7 @@ const Signin = ({ navigation }) => {
   }
   const handleSign = () => {
     authstore.signIn(user, navigation, toast);
+    setUser({ username: "", password: "" });
   };
   return (
     <View>
