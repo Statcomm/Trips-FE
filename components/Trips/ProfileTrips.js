@@ -1,4 +1,4 @@
-import { Avatar, Divider } from "native-base";
+import { Avatar, Divider, Flex } from "native-base";
 import React from "react";
 import {
   ImageBackground,
@@ -10,7 +10,6 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
-import authstore from "../../Store/authStore";
 import { LinearGradient } from "expo-linear-gradient";
 
 const deviceHeight = Dimensions.get("window").height;
@@ -19,26 +18,6 @@ const deviceWidth = Dimensions.get("window").width;
 const TripItem = ({ trip, navigation }) => {
   return (
     <SafeAreaView>
-      <View style={styles.owner}>
-        <Avatar
-          w={7}
-          h={7}
-          borderWidth={1}
-          source={{
-            uri: trip.owner.image,
-          }}
-        />
-        <Text
-          onPress={() =>
-            navigation.navigate("Profile", {
-              ownerid: trip.owner._id,
-            })
-          }
-          style={styles.ownerText}
-        >
-          {trip.owner.username}
-        </Text>
-      </View>
       <Pressable
         onPress={() => navigation.navigate("DetailsTrip", { trip: trip })}
       >
@@ -58,7 +37,7 @@ const TripItem = ({ trip, navigation }) => {
         </View>
       </Pressable>
 
-      <Divider my={2} width={300} alignSelf="center" />
+      <Divider my={1} width={150} alignSelf="center" />
     </SafeAreaView>
   );
 };
@@ -71,7 +50,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   oneTrip: {
-    width: "97%",
+    width: 125,
     height: deviceHeight / 5,
     margin: 5,
     backgroundColor: "#F2F2F2",
@@ -90,22 +69,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   tripTitle: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
-  },
-  owner: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 10,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  ownerText: {
-    marginLeft: 10,
-    fontWeight: "bold",
   },
 });

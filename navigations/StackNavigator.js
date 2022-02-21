@@ -29,6 +29,7 @@ const StackNavigator = () => {
         )}
         component={DetailsTrip}
       />
+      <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen
         name="TripList"
         component={TripList}
