@@ -6,6 +6,7 @@ import authstore from "../../Store/authStore";
 import { useNavigation } from "@react-navigation/native";
 
 const SignUp = ({ navigation }) => {
+  const [profile, setProfile] = useState();
   const [user, setUser] = useState({
     username: "",
     password: "",
