@@ -14,7 +14,6 @@ const Signin = ({ navigation }) => {
   };
   const handlePassword = (event) => {
     setUser({ ...user, password: event });
-    setUser({ username: "", password: "" });
   };
   const toast = useToast();
   if (authstore.loading) {
@@ -22,6 +21,7 @@ const Signin = ({ navigation }) => {
   }
   const handleSign = () => {
     authstore.signIn(user, navigation, toast);
+    setUser({ username: "", password: "" });
   };
   return (
     <View>
@@ -34,7 +34,12 @@ const Signin = ({ navigation }) => {
           <Text style={styles.label}>
             <Icon name="user" /> Username:
           </Text>
-          <Input h={10} borderColor={"black"} onChangeText={handleUsername} />
+          <Input
+            value={user.username}
+            h={10}
+            borderColor={"black"}
+            onChangeText={handleUsername}
+          />
 
           <Text style={styles.label}>
             <Icon name="key" /> Password:
@@ -44,6 +49,7 @@ const Signin = ({ navigation }) => {
             h={10}
             borderColor={"black"}
             onChangeText={handlePassword}
+            value={user.password}
           />
         </View>
         <Button style={styles.signBtn} onPress={handleSign}>

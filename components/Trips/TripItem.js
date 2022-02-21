@@ -19,6 +19,17 @@ const deviceWidth = Dimensions.get("window").width;
 const TripItem = ({ trip, navigation }) => {
   return (
     <SafeAreaView>
+      <View style={styles.owner}>
+        <Avatar
+          w={7}
+          h={7}
+          borderWidth={1}
+          source={{
+            uri: trip.owner.image,
+          }}
+        />
+        <Text style={styles.ownerText}>{trip.owner.username}</Text>
+      </View>
       <Pressable
         onPress={() => navigation.navigate("DetailsTrip", { trip: trip })}
       >
@@ -38,15 +49,6 @@ const TripItem = ({ trip, navigation }) => {
         </View>
       </Pressable>
 
-      <View style={styles.owner}>
-        <Avatar
-          borderWidth={1}
-          source={{
-            uri: trip.owner.image,
-          }}
-        />
-        <Text>{trip.owner.username}</Text>
-      </View>
       <Divider my={2} width={300} alignSelf="center" />
     </SafeAreaView>
   );
@@ -89,8 +91,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    width: "30%",
+    marginLeft: 10,
+    marginTop: 10,
     marginBottom: 10,
+  },
+  ownerText: {
+    marginLeft: 10,
+    fontWeight: "bold",
   },
 });

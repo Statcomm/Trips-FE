@@ -38,10 +38,11 @@ const TabNavigator = () => {
       <Tab.Screen
         name="Add New Trip"
         options={{
-          tabBarItemStyle: authstore.user ? true : false,
+          headerTitle: "",
           tabBarIcon: ({ color, size }) => (
             <Icon name="plus" color={color} size={size} />
           ),
+          tabBarItemStyle: { display: authstore.user ? "flex" : "none" },
         }}
         component={AddTripFrom}
       />

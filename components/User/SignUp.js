@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input } from "native-base";
+import { Button, Input, Spinner, useToast } from "native-base";
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
@@ -28,6 +28,10 @@ const SignUp = ({ navigation }) => {
   const handleDescrip = (event) => {
     setUser({ ...user, description: event });
   };
+  const toast = useToast();
+  if (authstore.loading) {
+    <Spinner />;
+  }
   // const navigation = useNavigation();
   return (
     <ScrollView>
@@ -74,7 +78,10 @@ const SignUp = ({ navigation }) => {
         </Text>
         <Input h={120} borderColor={"black"} onChangeText={handleDescrip} />
       </View>
-      <Button style={styles.signBtn} onPress={() => authstore.signUp(user)}>
+      <Button
+        style={styles.signBtn}
+        onPress={() => authstore.signUp(user, navigation, toast)}
+      >
         Sign Up
       </Button>
     </ScrollView>

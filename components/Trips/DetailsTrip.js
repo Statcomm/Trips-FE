@@ -1,12 +1,16 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Avatar, Flex, ScrollView } from "native-base";
+import { Avatar, ScrollView, useToast } from "native-base";
+import Icon from "react-native-vector-icons/AntDesign";
+import tripStore from "../../Store/tripStore";
+import authstore from "../../Store/authStore";
 
-const DetailsTrip = ({ route }) => {
+const DetailsTrip = ({ route, navigation }) => {
   const trip = route.params.trip;
-  console.log(route);
 
+  const toast = useToast();
+  //TODO Spinner For fetching
   return (
     <SafeAreaView>
       <ScrollView>
@@ -18,6 +22,8 @@ const DetailsTrip = ({ route }) => {
             style={styles.detailimage}
           />
           <Text style={styles.detailtitles}>{trip.title}</Text>
+
+          {/* Owner */}
           <View style={styles.detailsavatar}>
             <Avatar
               borderWidth={1}
@@ -26,7 +32,30 @@ const DetailsTrip = ({ route }) => {
               }}
             />
             <Text style={styles.detailsubtitles}>{trip.owner.username}</Text>
+            {authstore.user && (
+              <View style={styles.addUpdate}>
+                <View style={styles.btn}>
+                  <Icon.Button
+                    onPress={() =>
+                      tripStore.deleteTrip(trip._id, navigation, toast)
+                    }
+                    marginLeft={5}
+                    name="delete"
+                    backgroundColor="red"
+                  />
+                </View>
+                <View style={styles.btn}>
+                  <Icon.Button
+                    marginLeft={5}
+                    name="edit"
+                    backgroundColor="green"
+                  />
+                </View>
+              </View>
+            )}
           </View>
+
+          {/* Description */}
           <Text style={styles.detaildescription}>{trip.description}</Text>
         </View>
       </ScrollView>
@@ -51,6 +80,7 @@ const styles = StyleSheet.create({
   },
   detailsubtitles: {
     fontSize: 15,
+    marginLeft: 15,
   },
   detaildescription: {
     fontSize: 15,
@@ -68,8 +98,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    margin: 10,
-    justifyContent: "space-around",
-    width: "60%",
+    marginLeft: 20,
+  },
+  addUpdate: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: 120,
+  },
+  btn: {
+    marginRight: 4,
   },
 });
