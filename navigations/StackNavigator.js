@@ -7,6 +7,7 @@ import Signin from "../components/User/Signin";
 import SignUp from "../components/User/SignUp";
 import DetailsTrip from "../components/Trips/DetailsTrip";
 import SignOutBtn from "../components/button/SignOutBtn";
+import Profile from "../components/Profile/Profile";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
