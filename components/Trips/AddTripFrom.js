@@ -116,6 +116,7 @@ const AddTripFrom = ({ navigation }) => {
           value={trip.description}
           h={120}
           borderColor={"black"}
+          multiline={true}
           onChangeText={handleDescrip}
         />
       </View>
