@@ -31,16 +31,21 @@ class AuthStore {
   signIn = async (user, navigation, toast) => {
     try {
       const resp = await api.post("/signin", user);
+
       await this.setUser(resp.data.token);
       this.loading = false;
       //TODO need to edit the Toast
       toast.show({
         title: "hello",
-        status: "info",
+        status: "success",
       });
       navigation.navigate("TripList");
     } catch (error) {
       console.log(error);
+      toast.show({
+        title: "Sorry Cannot Sign In",
+        status: "error",
+      });
     }
   };
 

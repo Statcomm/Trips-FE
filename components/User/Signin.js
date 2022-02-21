@@ -34,7 +34,12 @@ const Signin = ({ navigation }) => {
           <Text style={styles.label}>
             <Icon name="user" /> Username:
           </Text>
-          <Input h={10} borderColor={"black"} onChangeText={handleUsername} />
+          <Input
+            value={user.username}
+            h={10}
+            borderColor={"black"}
+            onChangeText={handleUsername}
+          />
 
           <Text style={styles.label}>
             <Icon name="key" /> Password:
@@ -44,6 +49,7 @@ const Signin = ({ navigation }) => {
             h={10}
             borderColor={"black"}
             onChangeText={handlePassword}
+            value={user.password}
           />
         </View>
         <Button style={styles.signBtn} onPress={handleSign}>
