@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Avatar, ScrollView, Spinner, useToast } from "native-base";
@@ -25,56 +25,70 @@ const DetailsTrip = ({ route, navigation }) => {
   }
   return (
     <SafeAreaView>
-      <ScrollView>
-        <View>
-          <Image
-            source={{
-              uri: trip.image,
-            }}
-            style={styles.detailimage}
-          />
-          <Text style={styles.detailtitles}>{trip.title}</Text>
-
-          {/* Owner */}
-          <View style={styles.detailsavatar}>
-            <Avatar
-              borderWidth={1}
+      <Pressable>
+        <ScrollView>
+          <View>
+            <Image
               source={{
-                uri: trip.owner.image,
+                uri: trip.image,
               }}
+              style={styles.detailimage}
             />
-            <Text style={styles.detailsubtitles}>{trip.owner.username}</Text>
-            {authstore.user && authstore.user.id === trip.owner._id && (
-              <View style={styles.addUpdate}>
-                <View style={styles.btn}>
-                  <Icon.Button
-                    onPress={() =>
-                      tripStore.deleteTrip(trip._id, navigation, toast)
-                    }
-                    marginLeft={5}
-                    name="delete"
-                    backgroundColor="red"
-                  />
-                </View>
+            <Text style={styles.detailtitles}>{trip.title}</Text>
 
-                <View style={styles.btn}>
-                  <Icon.Button
-                    onPress={() => {
-                      navigation.navigate("UpdateTrip", { tripId: trip });
-                    }}
-                    marginLeft={5}
-                    name="edit"
-                    backgroundColor="green"
-                  />
+            {/* Owner */}
+
+            <View>
+              <Pressable
+                style={styles.detailsavatar}
+                onPress={() =>
+                  navigation.navigate("Profile", {
+                    ownerid: trip.owner._id,
+                  })
+                }
+              >
+                <Avatar
+                  borderWidth={1}
+                  source={{
+                    uri: trip.owner.image,
+                  }}
+                />
+                <Text style={styles.detailsubtitles}>
+                  {trip.owner.username}
+                </Text>
+              </Pressable>
+              {authstore.user && authstore.user.id === trip.owner._id && (
+                <View style={styles.addUpdate}>
+                  <View style={styles.btn}>
+                    <Icon.Button
+                      onPress={() =>
+                        tripStore.deleteTrip(trip._id, navigation, toast)
+                      }
+                      marginLeft={5}
+                      name="delete"
+                      backgroundColor="red"
+                    />
+                  </View>
+
+                  <View style={styles.btn}>
+                    <Icon.Button
+                      onPress={() => {
+                        navigation.navigate("UpdateTrip", { tripId: trip });
+                      }}
+                      marginLeft={5}
+                      name="edit"
+                      backgroundColor="green"
+                    />
+                  </View>
                 </View>
-              </View>
-            )}
+              )}
+            </View>
+
+            {/* Description */}
+            <Text style={styles.detaildescription}>{trip.description}</Text>
           </View>
-
-          {/* Description */}
-          <Text style={styles.detaildescription}>{trip.description}</Text>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </Pressable>
     </SafeAreaView>
   );
 };

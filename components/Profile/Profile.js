@@ -8,21 +8,21 @@ import ProfileTrips from "../Trips/ProfileTrips";
 import profileStore from "../../Store/profileStore";
 
 const Profile = ({ route, navigation }) => {
-  let user;
-  const ownerid = route.params?.ownerid;
+  if (route.params?.ownerid) {
+    ownerid = route.params?.ownerid;
+  } else {
+    ownerid = authstore.user.id;
+  }
+  // const ownerid = route.params?.ownerid;
   const userprofile = profileStore.profile.find(
     (user) => user.owner._id === ownerid
   );
-  console.log(
-    "🚀 ~ file: Profile.js ~ line 14 ~ Profile ~ userprofile",
-    userprofile
-  );
 
-  if (ownerid) {
-    user = ownerid;
-  } else {
-    user = authstore.user.id;
-  }
+  // if (ownerid) {
+  //   user = ownerid;
+  // } else {
+  //   user = authstore.user.id;
+  // }
 
   // const profiledetails = tripStore.trips.find(
   //   (trip) => trip.owner._id === user
