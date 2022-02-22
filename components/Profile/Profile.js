@@ -5,10 +5,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
 import ProfileTrips from "../Trips/ProfileTrips";
+import profileStore from "../../Store/profileStore";
 
 const Profile = ({ route, navigation }) => {
   let user;
   const ownerid = route.params?.ownerid;
+  const userprofile = profileStore.profile.find(
+    (user) => user.owner._id === ownerid
+  );
+  console.log(
+    "🚀 ~ file: Profile.js ~ line 14 ~ Profile ~ userprofile",
+    userprofile
+  );
 
   if (ownerid) {
     user = ownerid;
@@ -16,15 +24,13 @@ const Profile = ({ route, navigation }) => {
     user = authstore.user.id;
   }
 
-  const profiledetails = tripStore.trips.find(
-    (trip) => trip.owner._id === user
-  );
+  // const profiledetails = tripStore.trips.find(
+  //   (trip) => trip.owner._id === user
+  // );
 
-  const usertrips = tripStore.trips
-    .filter((trip) => trip.owner._id === user)
-    .map((trip) => (
-      <ProfileTrips trip={trip} key={trip._id} navigation={navigation} />
-    ));
+  const usertrips = userprofile.trips.map((trip) => (
+    <ProfileTrips trip={trip} key={trip._id} navigation={navigation} />
+  ));
 
   return (
     <ScrollView>
@@ -32,19 +38,13 @@ const Profile = ({ route, navigation }) => {
         <View style={styles.toppart}>
           <Avatar w={20} h={20} style={styles.avatar}></Avatar>
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>
-              {profiledetails.owner.username}
-            </Text>
-            <Text style={styles.email}>{profiledetails.owner.email}</Text>
+            <Text style={styles.usertitle}>{/*---------*/}</Text>
+            <Text style={styles.email}>{/*---------*/}</Text>
           </View>
         </View>
         <View style={styles.divider}>
           <Text style={styles.biotitle}>About me:</Text>
-          <Text style={styles.biodescription}>
-            Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum
-            Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum
-            Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum Ipsum Lopsum
-          </Text>
+          <Text style={styles.biodescription}>{userprofile.bio}</Text>
         </View>
         <View style={styles.divider}>
           <Text style={styles.biotitle}>My Trips:</Text>

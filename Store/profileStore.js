@@ -1,15 +1,10 @@
-import { makeObservable, observable, action } from "mobx";
-import api from "api";
+import { makeAutoObservable } from "mobx";
+import api from "./api";
 
 class ProfileStore {
   profile = [];
   constructor() {
-    makeObservable(this, {
-      profile: observable,
-      fetchProfiles: action,
-      createProfile: action,
-      deleteProfile: action,
-    });
+    makeAutoObservable(this);
   }
   fetchProfiles = async () => {
     try {
