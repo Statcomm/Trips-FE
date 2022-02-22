@@ -21,12 +21,9 @@ const StackNavigator = () => {
       />
       <Stack.Screen
         name="DetailsTrip"
-        options={({ route }) => (
-          {
-            headerTitle: route.params.trip.name,
-          },
-          { headerShown: false }
-        )}
+        options={({ route }) => ({
+          headerTitle: route.params.trip.name,
+        })}
         component={DetailsTrip}
       />
       <Stack.Screen name="Profile" component={Profile} />

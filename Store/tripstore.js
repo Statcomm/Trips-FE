@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import api from "./api";
+import authstore from "./authStore";
 import profileStore from "./profileStore";
 
 class TripStore {
@@ -27,7 +28,11 @@ class TripStore {
       }
 
       const profileId = profileStore.profile.find(
-        (oneProf) => newTrip.owner._id === oneProf.owner._id
+        (oneProf) => oneProf.owner === authstore.user._id
+      );
+      console.log(
+        "🚀 ~ file: tripstore.js ~ line 32 ~ TripStore ~ createTrip= ~ profileId",
+        profileId
       );
 
       const response = await api.post(`${profileId._id}/trips`, newTrip);
@@ -53,8 +58,10 @@ class TripStore {
     try {
       const response = await api.delete(`/trips/${id}`);
       console.log(response.data);
-      this.trips = this.trips.filter((trip) => trip.id !== id);
+      const tempTrip = this.trips.filter((trip) => trip.id !== id);
+      this.trips = tempTrip;
       this.loading = false;
+
       navigation.replace("TripList");
       toast.show({
         title: "trip is Deleted Successfully",
