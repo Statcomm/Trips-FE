@@ -39,7 +39,11 @@ const TripItem = ({ trip, navigation }) => {
         </View>
       </Pressable>
       <Pressable
-        onPress={() => navigation.navigate("DetailsTrip", { trip: trip })}
+        onPress={() =>
+          navigation.navigate("DetailsTrip", {
+            trip: trip,
+          })
+        }
       >
         <View style={styles.oneTrip}>
           <ImageBackground

@@ -19,7 +19,11 @@ const TripItem = ({ trip, navigation }) => {
   return (
     <SafeAreaView>
       <Pressable
-        onPress={() => navigation.navigate("DetailsTrip", { trip: trip })}
+        onPress={() =>
+          navigation.navigate("DetailsTrip", {
+            trip: trip,
+          })
+        }
       >
         <View style={styles.oneTrip}>
           <ImageBackground
