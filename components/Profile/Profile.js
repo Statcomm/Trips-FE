@@ -6,6 +6,7 @@ import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
 import ProfileTrips from "../Trips/ProfileTrips";
 import profileStore from "../../Store/profileStore";
+import { observer } from "mobx-react";
 
 const Profile = ({ route, navigation }) => {
   if (route.params?.ownerid) {
@@ -24,6 +25,9 @@ const Profile = ({ route, navigation }) => {
   //   user = authstore.user.id;
   // }
 
+  const userprofile = profileStore.profile.find(
+    (prof) => prof.owner._id === user
+  );
   // const profiledetails = tripStore.trips.find(
   //   (trip) => trip.owner._id === user
   // );
@@ -55,7 +59,7 @@ const Profile = ({ route, navigation }) => {
   );
 };
 
-export default Profile;
+export default observer(Profile);
 
 const styles = StyleSheet.create({
   toppart: {
