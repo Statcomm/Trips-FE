@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import api from "./api";
+import profileStore from "./profileStore";
 
 class TripStore {
   trips = [];
@@ -24,10 +25,12 @@ class TripStore {
       for (const key in newTrip) {
         formData.append(key, newTrip[key]);
       }
-      console.log("3");
 
-      const response = await api.post("/trips", newTrip);
-      console.log("4");
+      const profileId = profileStore.profile.find(
+        (oneProf) => newTrip.owner._id === oneProf.owner._id
+      );
+
+      const response = await api.post(`${profileId._id}/trips`, newTrip);
 
       this.trips.push(response.data);
 
@@ -38,7 +41,6 @@ class TripStore {
       //   status: "success",
       // });
     } catch (error) {
-      console.log("5");
       console.log(error);
       toast.show({
         title: "Cannot Create",

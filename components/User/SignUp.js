@@ -12,7 +12,7 @@ const SignUp = ({ navigation }) => {
     password: "",
     email: "",
     image: "",
-    description: "",
+    bio: "",
   });
   const handleUsername = (event) => {
     setUser({ ...user, username: event });
@@ -27,7 +27,7 @@ const SignUp = ({ navigation }) => {
     setUser({ ...user, image: event });
   };
   const handleDescrip = (event) => {
-    setUser({ ...user, description: event });
+    setUser({ ...user, bio: event });
   };
 
   const handleSign = () => {
