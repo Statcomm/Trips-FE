@@ -16,7 +16,11 @@ import UpdateTripFrom from "../components/Trips/UpdateTripFrom";
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator screenOptions={{ headerRight: () => <SignOutBtn /> }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerRight: () => <SignOutBtn />,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={StackNavigator}

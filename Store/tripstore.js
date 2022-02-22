@@ -26,7 +26,7 @@ class TripStore {
       }
       console.log("3");
 
-      const response = await api.post("/trips", formData);
+      const response = await api.post("/trips", newTrip);
       console.log("4");
 
       this.trips.push(response.data);

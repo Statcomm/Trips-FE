@@ -7,12 +7,10 @@ import { observer } from "mobx-react";
 const SignOutBtn = () => {
   return (
     <View>
-      {authstore.user ? (
+      {authstore.user && (
         <View style={styles.topbutton}>
           <Icon name="sign-out" size={30} onPress={authstore.signOut} />
         </View>
-      ) : (
-        <Text></Text>
       )}
     </View>
   );
@@ -20,4 +18,8 @@ const SignOutBtn = () => {
 
 export default observer(SignOutBtn);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  topbutton: {
+    marginRight: 20,
+  },
+});

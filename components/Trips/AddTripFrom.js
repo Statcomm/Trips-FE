@@ -65,7 +65,7 @@ const AddTripFrom = ({ navigation }) => {
     let type = match ? `image/${match[1]}` : `image`;
 
     // Assume "photo" is the name of the form field the server expects
-    setTrip({ ...trip, image: { uri: localUri, name: filename, type } });
+    setTrip({ ...trip, image: localUri });
   };
 
   return (

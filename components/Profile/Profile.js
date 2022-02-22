@@ -33,7 +33,7 @@ const Profile = ({ route, navigation }) => {
           <Avatar w={20} h={20} style={styles.avatar}></Avatar>
           <View style={styles.topparttext}>
             <Text style={styles.usertitle}>
-              {profiledetails.owner.username}{" "}
+              {profiledetails.owner.username}
             </Text>
             <Text style={styles.email}>{profiledetails.owner.email}</Text>
           </View>
