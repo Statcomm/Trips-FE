@@ -25,9 +25,6 @@ const Profile = ({ route, navigation }) => {
   //   user = authstore.user.id;
   // }
 
-  const userprofile = profileStore.profile.find(
-    (prof) => prof.owner._id === user
-  );
   // const profiledetails = tripStore.trips.find(
   //   (trip) => trip.owner._id === user
   // );
