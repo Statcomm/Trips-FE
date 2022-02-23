@@ -8,21 +8,22 @@ import ProfileTrips from "./ProfileTrips";
 import profileStore from "../../Store/profileStore";
 import { observer } from "mobx-react";
 import Icon from "react-native-vector-icons/AntDesign";
+import TripItem from "../Trips/TripItem";
 
 const Profile = ({ route, navigation }) => {
-  // const ownerid = route.params?.ownerid;
+  let ownerId = route.params?.ownerid;
+
   if (route.params?.ownerid) {
-    ownerid = route.params?.ownerid;
+    ownerId = route.params?.ownerid;
   } else {
-    ownerid = authstore.user.id;
+    ownerId = authstore.user.id;
   }
+  console.log("🚀 ~ file: Profile.js ~ line 20 ~ Profile ~ ownerId", ownerId);
+
   const userprofile = profileStore.profile.find(
-    (user) => user.owner._id === ownerid
+    (user) => user.owner?._id === ownerId
   );
 
-  if (profileStore.loading || authstore.loading) {
-    <Text>Loading</Text>;
-  }
   // if (ownerid) {
   //   user = ownerid;
   // } else {
@@ -41,13 +42,18 @@ const Profile = ({ route, navigation }) => {
     <ScrollView>
       <View>
         <View style={styles.toppart}>
-          <Avatar w={20} h={20} style={styles.avatar}></Avatar>
+          <Avatar
+            w={20}
+            h={20}
+            style={styles.avatar}
+            source={{ uri: userprofile.owner?.image }}
+          />
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>{userprofile.owner.username}</Text>
-            <Text style={styles.email}>{userprofile.owner.email}</Text>
+            <Text style={styles.usertitle}>{userprofile?.owner.username}</Text>
+            <Text style={styles.email}>{userprofile?.owner.email}</Text>
           </View>
 
-          {authstore.user && authstore.user.id === userprofile.owner._id && (
+          {authstore.user && authstore.user.id === userprofile.owner?._id && (
             <View style={styles.editprofile}>
               <Icon.Button
                 onPress={() => {

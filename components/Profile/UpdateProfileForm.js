@@ -7,6 +7,9 @@ import authstore from "../../Store/authStore";
 import profileStore from "../../Store/profileStore";
 
 const UpdateProfileForm = ({ route }) => {
+  if (profileStore.loading) {
+    <Text>Loading</Text>;
+  }
   const profile2 = route.params.userinfo;
 
   const [profile, setProfile] = useState({

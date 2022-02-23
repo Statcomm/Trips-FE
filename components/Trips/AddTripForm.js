@@ -100,14 +100,8 @@ const AddTripForm = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.addBtn}>Choose a Photo</Text>
         </TouchableOpacity>
-        {/* <Input
-          h={10}
-          borderColor={"black"}
-          onChangeText={handleImage}
-          value={trip.image}
-        /> */}
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:

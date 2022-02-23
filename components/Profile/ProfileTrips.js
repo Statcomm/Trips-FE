@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
+import { observer } from "mobx-react";
 import { LinearGradient } from "expo-linear-gradient";
 
 const deviceHeight = Dimensions.get("window").height;
@@ -46,7 +47,7 @@ const TripItem = ({ trip, navigation }) => {
   );
 };
 
-export default TripItem;
+export default observer(TripItem);
 
 const styles = StyleSheet.create({
   tripImage: {

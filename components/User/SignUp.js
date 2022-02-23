@@ -14,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
 const SignUp = ({ navigation }) => {
-  const [profile, setProfile] = useState();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -62,7 +61,7 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleSign = () => {
-    authstore.signUp(user, profile, navigation, toast);
+    authstore.signUp(user, navigation, toast);
   };
 
   const toast = useToast();
