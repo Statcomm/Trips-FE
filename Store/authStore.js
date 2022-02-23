@@ -53,11 +53,11 @@ class AuthStore {
     try {
       const resp = await api.post("/signup", user);
       await this.setUser(resp.data.token);
-      this.loading = false;
       toast.show({
         title: `Welcome ${this.user.username}`,
         status: "success",
       });
+      this.loading = false;
       navigation.navigate("TripList");
     } catch (error) {
       console.log(error);
@@ -67,6 +67,7 @@ class AuthStore {
     delete api.defaults.headers.common.Authorization;
     AsyncStorage.removeItem("myToken");
     this.user = null;
+    this.loading = false;
   };
 }
 

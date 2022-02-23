@@ -49,8 +49,8 @@ const Profile = ({ route, navigation }) => {
             source={{ uri: userprofile.owner?.image }}
           />
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>{userprofile?.owner.username}</Text>
-            <Text style={styles.email}>{userprofile?.owner.email}</Text>
+            <Text style={styles.usertitle}>{userprofile.owner?.username}</Text>
+            <Text style={styles.email}>{userprofile.owner?.email}</Text>
           </View>
 
           {authstore.user && authstore.user.id === userprofile.owner?._id && (

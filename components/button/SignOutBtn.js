@@ -5,6 +5,11 @@ import authstore from "../../Store/authStore";
 import { observer } from "mobx-react";
 
 const SignOutBtn = () => {
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner />
+    </View>;
+  }
   return (
     <View>
       {authstore.user && (
@@ -19,6 +24,11 @@ const SignOutBtn = () => {
 export default observer(SignOutBtn);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   topbutton: {
     marginRight: 20,
   },

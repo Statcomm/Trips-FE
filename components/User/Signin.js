@@ -16,13 +16,16 @@ const Signin = ({ navigation }) => {
     setUser({ ...user, password: event });
   };
   const toast = useToast();
-  if (authstore.loading) {
-    <Spinner />;
-  }
+
   const handleSign = () => {
     authstore.signIn(user, navigation, toast);
     setUser({ username: "", password: "" });
   };
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading " />
+    </View>;
+  }
   return (
     <View>
       <ScrollView>
@@ -63,6 +66,11 @@ const Signin = ({ navigation }) => {
 export default Signin;
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   signupTitle: {
     fontWeight: "bold",
     fontSize: 30,

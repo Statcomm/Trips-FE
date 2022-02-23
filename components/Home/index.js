@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "native-base";
+import { Button, Spinner } from "native-base";
 
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 
