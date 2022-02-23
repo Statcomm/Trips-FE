@@ -53,6 +53,7 @@ class AuthStore {
     try {
       const resp = await api.post("/signup", user);
       await this.setUser(resp.data.token);
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }

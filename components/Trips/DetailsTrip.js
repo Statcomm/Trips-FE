@@ -38,7 +38,7 @@ const DetailsTrip = ({ route, navigation }) => {
 
             {/* Owner */}
 
-            <View>
+            <View style={styles.detailsavatar}>
               <Pressable
                 style={styles.detailsavatar}
                 onPress={() =>

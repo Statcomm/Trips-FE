@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 
 const SignUp = ({ navigation }) => {
   const [profile, setProfile] = useState();
@@ -23,11 +24,34 @@ const SignUp = ({ navigation }) => {
   const handleEmail = (event) => {
     setUser({ ...user, email: event });
   };
-  const handleImage = (event) => {
-    setUser({ ...user, image: event });
-  };
+  // const handleImage = (event) => {
+  //   setUser({ ...user, image: event });
+  // };
   const handleDescrip = (event) => {
     setUser({ ...user, bio: event });
+  };
+
+  const openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync();
+
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Assume "photo" is the name of the form field the server expects
+    setUser({ ...user, image: localUri });
   };
 
   const handleSign = () => {
@@ -35,6 +59,7 @@ const SignUp = ({ navigation }) => {
   };
 
   const toast = useToast();
+
   if (authstore.loading) {
     <Spinner />;
   }
@@ -78,12 +103,22 @@ const SignUp = ({ navigation }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Profile Image:
         </Text>
-        <Input h={10} borderColor={"black"} onChangeText={handleImage} />
+        <Input
+          h={10}
+          type="file"
+          borderColor={"black"}
+          // onChangeText={handleImage}
+        />
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
         </Text>
-        <Input h={120} borderColor={"black"} onChangeText={handleDescrip} />
+        <Input
+          h={120}
+          multiline
+          borderColor={"black"}
+          onChangeText={handleDescrip}
+        />
       </View>
       <Button style={styles.signBtn} onPress={handleSign}>
         Sign Up
