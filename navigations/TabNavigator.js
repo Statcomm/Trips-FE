@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TripList from "../components/Trips/TripList";
-import AddTripFrom from "../components/Trips/AddTripFrom";
+import AddTripForm from "../components/Trips/AddTripForm";
 import SignUp from "../components/User/SignUp";
 import Signin from "../components/User/Signin";
 import Profile from "../components/Profile/Profile";
@@ -11,7 +11,7 @@ import StackNavigator from "./StackNavigator";
 import authstore from "../Store/authStore";
 import { observer } from "mobx-react";
 import SignOutBtn from "../components/button/SignOutBtn";
-import UpdateTripFrom from "../components/Trips/UpdateTripFrom";
+import UpdateTripForm from "../components/Trips/UpdateTripForm";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -49,7 +49,7 @@ const TabNavigator = () => {
           ),
           tabBarItemStyle: { display: authstore.user ? "flex" : "none" },
         }}
-        component={AddTripFrom}
+        component={AddTripForm}
       />
 
       <Tab.Screen

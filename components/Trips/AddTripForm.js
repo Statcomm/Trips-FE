@@ -1,20 +1,24 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { observer } from "mobx-react";
 import { Input, Button, useToast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
+import * as ImagePicker from "expo-image-picker";
 
-const UpdateTripFrom = ({ route, navigation }) => {
-  const trip2 = route.params.tripId;
-
+const AddTripForm = ({ navigation }) => {
   const [trip, setTrip] = useState({
-    _id: trip2._id,
-    title: trip2.title,
-    location: trip2.location,
-    image: trip2.image,
-    description: trip2.description,
+    title: "",
+    location: "",
+    image: "",
+    description: "",
   });
 
   const handleTitle = (event) => {
@@ -23,16 +27,16 @@ const UpdateTripFrom = ({ route, navigation }) => {
   const handleLocation = (event) => {
     setTrip({ ...trip, location: event });
   };
-  const handleImage = (event) => {
-    setTrip({ ...trip, image: event });
-  };
+  //   const handleImage = (event) => {
+  //     setTrip({ ...trip, image: event });
+  //   };
   const handleDescrip = (event) => {
     setTrip({ ...trip, description: event });
   };
   const toast = useToast();
 
   const handleSubmit = () => {
-    tripStore.updateTrip(trip, navigation, toast);
+    tripStore.createTrip(trip, navigation, toast);
     setTrip({
       title: "",
       location: "",
@@ -41,10 +45,33 @@ const UpdateTripFrom = ({ route, navigation }) => {
     });
   };
 
+  let openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync();
+
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Assume "photo" is the name of the form field the server expects
+    setTrip({ ...trip, image: localUri });
+  };
+
   return (
     <ScrollView>
       <View style={styles.header}>
-        <Text style={styles.mainTitle}>Update Trip</Text>
+        <Text style={styles.mainTitle}>Add New Trip</Text>
       </View>
       <View style={styles.form}>
         <Text style={styles.label}>
@@ -71,32 +98,36 @@ const UpdateTripFrom = ({ route, navigation }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Image:
         </Text>
-        <Input
+
+        <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
+          <Text>Pick</Text>
+        </TouchableOpacity>
+        {/* <Input
           h={10}
           borderColor={"black"}
           onChangeText={handleImage}
           value={trip.image}
-          multiline={true}
-        />
+        /> */}
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
         </Text>
         <Input
-          multiline={true}
           value={trip.description}
+          h={120}
           borderColor={"black"}
+          multiline={true}
           onChangeText={handleDescrip}
         />
       </View>
       <Button onPress={handleSubmit} style={styles.addBtn}>
-        Update Trip
+        Add New Trip
       </Button>
     </ScrollView>
   );
 };
 
-export default observer(UpdateTripFrom);
+export default observer(AddTripForm);
 
 const styles = StyleSheet.create({
   header: {

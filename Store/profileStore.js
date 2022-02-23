@@ -36,11 +36,16 @@ class ProfileStore {
   updateProfile = async (updatedProfile) => {
     try {
       const response = await api.put(
-        `/profiles/${updatedProfile.id}`,
+        `/profiles/${updatedProfile._id}`,
         updatedProfile
       );
+      console.log(
+        "🚀 ~ file: profileStore.js ~ line 42 ~ ProfileStore ~ updateProfile= ~ response",
+        response.data
+      );
+
       this.profile = this.profile.map((profile) =>
-        profile.id === updatedProfile.id ? response.data : profile
+        profile._id === updatedProfile._id ? response.data : profile
       );
     } catch (error) {
       console.log(error);

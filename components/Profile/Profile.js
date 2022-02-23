@@ -7,6 +7,7 @@ import tripStore from "../../Store/tripStore";
 import ProfileTrips from "../Trips/ProfileTrips";
 import profileStore from "../../Store/profileStore";
 import { observer } from "mobx-react";
+import Icon from "react-native-vector-icons/AntDesign";
 
 const Profile = ({ route, navigation }) => {
   if (route.params?.ownerid) {
@@ -39,9 +40,23 @@ const Profile = ({ route, navigation }) => {
         <View style={styles.toppart}>
           <Avatar w={20} h={20} style={styles.avatar}></Avatar>
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>{/*---------*/}</Text>
-            <Text style={styles.email}>{/*---------*/}</Text>
+            <Text style={styles.usertitle}>{userprofile.owner.username}</Text>
+            <Text style={styles.email}>{userprofile.owner.email}</Text>
           </View>
+
+          {authstore.user && authstore.user.id === userprofile.owner._id && (
+            <View style={styles.editprofile}>
+              <Icon.Button
+                onPress={() => {
+                  navigation.navigate("UpdateProfileForm", {
+                    userinfo: userprofile,
+                  });
+                }}
+                name="profile"
+              />
+              <Text>Edit Profile</Text>
+            </View>
+          )}
         </View>
         <View style={styles.divider}>
           <Text style={styles.biotitle}>About me:</Text>
@@ -102,4 +117,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  editprofile: {},
 });

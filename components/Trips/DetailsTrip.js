@@ -8,10 +8,6 @@ import authstore from "../../Store/authStore";
 import { observer } from "mobx-react";
 
 const DetailsTrip = ({ route, navigation }) => {
-  console.log(
-    "🚀 ~ file: DetailsTrip.js ~ line 11 ~ DetailsTrip ~ route",
-    route
-  );
   const trip = route.params.trip;
 
   const toast = useToast();
