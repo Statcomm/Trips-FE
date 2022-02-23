@@ -21,26 +21,26 @@ class TripStore {
 
   createTrip = async (newTrip, navigation, toast) => {
     try {
-      const formData = new FormData();
+      // const formData = new FormData();
 
-      for (const key in newTrip) {
-        formData.append(key, newTrip[key]);
-      }
+      // for (const key in newTrip) {
+      //   formData.append(key, newTrip[key]);
+      // }
 
-      const profileId = profileStore.profile.find(
-        (oneProf) => oneProf.owner._id === authstore.user.id
-      );
+      const profileId = profileStore.profile.find((oneProf) => {
+        oneProf.owner._id === authstore.user.id;
+      });
+
       console.log(
-        "🚀 ~ file: tripstore.js ~ line 32 ~ TripStore ~ createTrip= ~ profileId",
-        authstore.user.id
+        "🚀 ~ file: tripstore.js ~ line 35 ~ TripStore ~ createTrip= ~ newTrip",
+        newTrip
       );
-
       const response = await api.post(`${profileId._id}/trips`, newTrip);
 
       this.trips.push(response.data);
 
       this.loading = false;
-      navigation.navigate(TripList);
+      navigation.goBack();
       toast.show({
         title: "trip is created Successfully",
         status: "success",
@@ -59,7 +59,7 @@ class TripStore {
       const response = await api.delete(`/trips/${id}`);
       console.log(response.data);
       //destractire
-      const tempTrip = this.trips.filter((trip) => trip.id !== id);
+      const tempTrip = this.trips.filter((trip) => trip._id !== id);
       this.trips = tempTrip;
       this.loading = false;
 

@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Button, Input, Spinner, useToast } from "native-base";
-import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import { useNavigation } from "@react-navigation/native";
@@ -103,12 +110,9 @@ const SignUp = ({ navigation }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Profile Image:
         </Text>
-        <Input
-          h={10}
-          type="file"
-          borderColor={"black"}
-          // onChangeText={handleImage}
-        />
+        <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
+          <Text>Pick</Text>
+        </TouchableOpacity>
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
