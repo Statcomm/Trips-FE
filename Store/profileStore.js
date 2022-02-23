@@ -3,6 +3,7 @@ import api from "./api";
 
 class ProfileStore {
   profile = [];
+  loading = true;
   constructor() {
     makeAutoObservable(this);
   }
@@ -10,6 +11,7 @@ class ProfileStore {
     try {
       const response = await api.get("/profiles");
       this.profile = response.data;
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +44,8 @@ class ProfileStore {
       this.profile = this.profile.map((profile) =>
         profile.id === updatedProfile.id ? response.data : profile
       );
+
+      this.loading = false;
     } catch (error) {
       console.log(error);
     }

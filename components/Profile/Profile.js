@@ -4,21 +4,24 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
-import ProfileTrips from "../Trips/ProfileTrips";
+import ProfileTrips from "./ProfileTrips";
 import profileStore from "../../Store/profileStore";
 import { observer } from "mobx-react";
 
 const Profile = ({ route, navigation }) => {
+  // const ownerid = route.params?.ownerid;
   if (route.params?.ownerid) {
     ownerid = route.params?.ownerid;
   } else {
     ownerid = authstore.user.id;
   }
-  // const ownerid = route.params?.ownerid;
   const userprofile = profileStore.profile.find(
     (user) => user.owner._id === ownerid
   );
 
+  if (profileStore.loading || authstore.loading) {
+    <Text>Loading</Text>;
+  }
   // if (ownerid) {
   //   user = ownerid;
   // } else {

@@ -45,7 +45,7 @@ const AddTripFrom = ({ navigation }) => {
     });
   };
 
-  let openImagePickerAsync = async () => {
+  const openImagePickerAsync = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
