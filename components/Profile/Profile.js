@@ -7,7 +7,7 @@ import tripStore from "../../Store/tripStore";
 import ProfileTrips from "./ProfileTrips";
 import profileStore from "../../Store/profileStore";
 import { observer } from "mobx-react";
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/Entypo";
 import TripItem from "../Trips/TripItem";
 
 const Profile = ({ route, navigation }) => {
@@ -18,7 +18,6 @@ const Profile = ({ route, navigation }) => {
   } else {
     ownerId = authstore.user.id;
   }
-  console.log("🚀 ~ file: Profile.js ~ line 20 ~ Profile ~ ownerId", ownerId);
 
   const userprofile = profileStore.profile.find(
     (user) => user.owner?._id === ownerId
@@ -49,25 +48,31 @@ const Profile = ({ route, navigation }) => {
             source={{ uri: userprofile.owner?.image }}
           />
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>{userprofile.owner?.username}</Text>
+            <View style={styles.userediting}>
+              <Text style={styles.usertitle}>
+                {userprofile.owner?.username}
+              </Text>
+              {authstore.user && authstore.user.id === userprofile.owner?._id && (
+                <View style={styles.editprofile}>
+                  <Icon
+                    style={styles.editprofilebtn}
+                    color="gray"
+                    backgroundColor={"gray"}
+                    borderRadius={20}
+                    size={22}
+                    onPress={() => {
+                      navigation.navigate("UpdateProfileForm", {
+                        userinfo: userprofile,
+                      });
+                    }}
+                    name="cog"
+                  />
+                  {/* <Text>Edit Profile</Text> */}
+                </View>
+              )}
+            </View>
             <Text style={styles.email}>{userprofile.owner?.email}</Text>
           </View>
-
-          {authstore.user && authstore.user.id === userprofile.owner?._id && (
-            <View style={styles.editprofile}>
-              <Icon.Button
-                marginLeft={10}
-                size={25}
-                onPress={() => {
-                  navigation.navigate("UpdateProfileForm", {
-                    userinfo: userprofile,
-                  });
-                }}
-                name="profile"
-              />
-              <Text>Edit Profile</Text>
-            </View>
-          )}
         </View>
         <View style={styles.divider}>
           <Text style={styles.biotitle}>About me:</Text>
@@ -128,5 +133,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
-  editprofile: {},
+  editprofile: {
+    display: "flex",
+    alignContent: "flex-end",
+    justifyContent: "center",
+    borderRadius: 20,
+    width: 50,
+    marginLeft: 5,
+  },
+  editprofilebtn: {
+    alignContent: "center",
+    borderRadius: 20,
+  },
+  userediting: {
+    display: "flex",
+    flexDirection: "row",
+  },
 });

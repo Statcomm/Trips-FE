@@ -105,7 +105,7 @@ const AddTripForm = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text style={styles.addBtn}>Choose a Photo</Text>
+          <Text style={styles.photoTxtBtn}>Choose a Photo</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>
@@ -119,8 +119,8 @@ const AddTripForm = ({ navigation }) => {
           onChangeText={handleDescrip}
         />
       </View>
-      <Button onPress={handleSubmit} style={styles.addBtn}>
-        Add New Trip
+      <Button onPress={handleSubmit} style={styles.addtripbttn}>
+        <Text style={styles.addtriptxt}>Add New Trip </Text>
       </Button>
     </ScrollView>
   );
@@ -153,9 +153,40 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addBtn: {
-    width: "80%",
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  photoTxtBtn: {
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
+  },
+  addtripbttn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 6,
+  },
+  addtriptxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });

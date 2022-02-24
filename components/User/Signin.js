@@ -56,7 +56,7 @@ const Signin = ({ navigation }) => {
           />
         </View>
         <Button style={styles.signBtn} onPress={handleSign}>
-          Sign In
+          <Text style={styles.signintxt}> Sign In </Text>
         </Button>
       </ScrollView>
     </View>
@@ -93,9 +93,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signBtn: {
-    width: "80%",
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 5,
+  },
+  signintxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });

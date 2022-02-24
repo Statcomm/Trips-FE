@@ -111,7 +111,7 @@ const SignUp = ({ navigation }) => {
           <Icon name="image" /> Profile Image:
         </Text>
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text style={styles.signBtn}>Pick a profile image</Text>
+          <Text style={styles.signBtn}>Grab a look</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>
@@ -124,8 +124,8 @@ const SignUp = ({ navigation }) => {
           onChangeText={handleDescrip}
         />
       </View>
-      <Button style={styles.signBtn} onPress={handleSign}>
-        Sign Up
+      <Button style={styles.signup} onPress={handleSign}>
+        <Text style={styles.signuptxt}> Sign Up </Text>
       </Button>
     </ScrollView>
   );
@@ -165,9 +165,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signBtn: {
-    width: "80%",
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
+  },
+  addBtn: {
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  signup: {
+    backgroundColor: "#8E9A69",
+    fontSize: 20,
+    padding: 10,
+    marginTop: 20,
+  },
+  signuptxt: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
   },
 });

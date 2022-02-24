@@ -61,8 +61,8 @@ const UpdateProfileForm = ({ route, navigation }) => {
           onChangeText={handleBio}
         />
       </View>
-      <Button onPress={handleSubmit} style={styles.addBtn}>
-        Update Profile
+      <Button onPress={handleSubmit} style={styles.updprofbttn}>
+        <Text style={styles.updproftxt}> Update Profile </Text>
       </Button>
     </ScrollView>
   );
@@ -89,10 +89,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "bold",
   },
-  addBtn: {
-    width: "80%",
+  updprofbttn: {
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 6,
+  },
+  updproftxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });
