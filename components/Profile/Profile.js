@@ -56,6 +56,8 @@ const Profile = ({ route, navigation }) => {
           {authstore.user && authstore.user.id === userprofile.owner?._id && (
             <View style={styles.editprofile}>
               <Icon.Button
+                marginLeft={10}
+                size={25}
                 onPress={() => {
                   navigation.navigate("UpdateProfileForm", {
                     userinfo: userprofile,

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import { observer } from "mobx-react";
+import { Spinner } from "native-base";
 
 const SignOutBtn = () => {
   if (authstore.loading) {

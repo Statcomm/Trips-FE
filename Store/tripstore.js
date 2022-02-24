@@ -28,7 +28,7 @@ class TripStore {
       // }
 
       const profileId = profileStore.profile.find(
-        (profId) => profId.owner._id === authstore.user.id
+        (profId) => profId.owner?._id === authstore.user.id
       );
 
       const res = await api.post(`/${profileId._id}/trips`, newTrip);

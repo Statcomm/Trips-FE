@@ -10,7 +10,6 @@ class ProfileStore {
   fetchProfiles = async () => {
     try {
       const response = await api.get("/profiles");
-
       this.profile = response.data;
       this.loading = false;
     } catch (error) {
@@ -18,7 +17,7 @@ class ProfileStore {
     }
   };
 
-  updateProfile = async (updatedProfile) => {
+  updateProfile = async (updatedProfile, navigation) => {
     try {
       const response = await api.put(
         `/profiles/${updatedProfile._id}`,
@@ -27,8 +26,8 @@ class ProfileStore {
       this.profile = this.profile.map((profile) =>
         profile._id === updatedProfile._id ? response.data : profile
       );
-
       this.loading = false;
+      navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
     }

@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import profileStore from "../../Store/profileStore";
 
-const UpdateProfileForm = ({ route }) => {
+const UpdateProfileForm = ({ route, navigation }) => {
   if (profileStore.loading) {
     <Text>Loading</Text>;
   }
@@ -27,7 +27,7 @@ const UpdateProfileForm = ({ route }) => {
   const toast = useToast();
 
   const handleSubmit = () => {
-    profileStore.updateProfile(profile);
+    profileStore.updateProfile(profile, navigation);
     setProfile({
       image: "",
       bio: "",
