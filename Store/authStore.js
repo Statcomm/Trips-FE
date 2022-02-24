@@ -3,6 +3,7 @@ import decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "./api";
+import profileStore from "./profileStore";
 
 class AuthStore {
   user = null;
@@ -40,6 +41,7 @@ class AuthStore {
         status: "success",
       });
       navigation.navigate("TripList");
+      profileStore.fetchProfiles();
     } catch (error) {
       console.log(error);
       toast.show({
@@ -59,6 +61,7 @@ class AuthStore {
       });
       this.loading = false;
       navigation.navigate("TripList");
+      profileStore.fetchProfiles();
     } catch (error) {
       console.log(error);
     }

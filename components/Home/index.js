@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Spinner } from "native-base";
 
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 
 const Home = ({ navigation }) => {
   return (
@@ -12,6 +12,7 @@ const Home = ({ navigation }) => {
       style={styles.bgHome}
     >
       <View style={styles.inHome}>
+        <Image style={styles.logo} source={require("../../assets/logo.png")} />
         <Text style={styles.homeTitle}> Travel's a Hoot!</Text>
 
         <Button
@@ -56,5 +57,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     marginBottom: 100,
+  },
+  logo: {
+    width: 200,
+    height: 200,
   },
 });
