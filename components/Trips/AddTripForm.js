@@ -7,13 +7,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { observer } from "mobx-react";
-import { Input, Button, useToast } from "native-base";
+import { Input, Button, useToast, Spinner } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
 import * as ImagePicker from "expo-image-picker";
 
 const AddTripForm = ({ navigation }) => {
+  if (tripStore.loading) {
+    <View style={styles.center}>
+      <Spinner />
+    </View>;
+  }
   const [trip, setTrip] = useState({
     title: "",
     location: "",
@@ -100,14 +105,8 @@ const AddTripForm = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.addBtn}>Choose a Photo</Text>
         </TouchableOpacity>
-        {/* <Input
-          h={10}
-          borderColor={"black"}
-          onChangeText={handleImage}
-          value={trip.image}
-        /> */}
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
@@ -130,6 +129,11 @@ const AddTripForm = ({ navigation }) => {
 export default observer(AddTripForm);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   header: {
     display: "flex",
     alignItems: "center",

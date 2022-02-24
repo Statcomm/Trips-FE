@@ -36,7 +36,7 @@ class AuthStore {
       this.loading = false;
       //TODO need to edit the Toast
       toast.show({
-        title: "hello",
+        title: `Hello ${this.user.username}`,
         status: "success",
       });
       navigation.navigate("TripList");
@@ -49,11 +49,16 @@ class AuthStore {
     }
   };
 
-  signUp = async (user) => {
+  signUp = async (user, navigation, toast) => {
     try {
       const resp = await api.post("/signup", user);
       await this.setUser(resp.data.token);
+      toast.show({
+        title: `Welcome ${this.user.username}`,
+        status: "success",
+      });
       this.loading = false;
+      navigation.navigate("TripList");
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +67,7 @@ class AuthStore {
     delete api.defaults.headers.common.Authorization;
     AsyncStorage.removeItem("myToken");
     this.user = null;
+    this.loading = false;
   };
 }
 

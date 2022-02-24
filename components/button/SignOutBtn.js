@@ -3,8 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import { observer } from "mobx-react";
+import { Spinner } from "native-base";
 
 const SignOutBtn = () => {
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner />
+    </View>;
+  }
   return (
     <View>
       {authstore.user && (
@@ -19,6 +25,11 @@ const SignOutBtn = () => {
 export default observer(SignOutBtn);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   topbutton: {
     marginRight: 20,
   },

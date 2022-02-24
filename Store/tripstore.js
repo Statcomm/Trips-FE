@@ -27,20 +27,20 @@ class TripStore {
       //   formData.append(key, newTrip[key]);
       // }
 
-      const profileId = profileStore.profile.find((oneProf) => {
-        oneProf.owner._id === authstore.user.id;
-      });
-
-      console.log(
-        "🚀 ~ file: tripstore.js ~ line 35 ~ TripStore ~ createTrip= ~ newTrip",
-        newTrip
+      const profileId = profileStore.profile.find(
+        (profId) => profId.owner?._id === authstore.user.id
       );
-      const response = await api.post(`${profileId._id}/trips`, newTrip);
 
-      this.trips.push(response.data);
+      const res = await api.post(`/${profileId._id}/trips`, newTrip);
+      console.log(
+        "🚀 ~ file: tripstore.js ~ line 31 ~ TripStore ~ createTrip= ~ res",
+        res.data
+      );
+
+      this.trips.push(res.data);
 
       this.loading = false;
-      navigation.goBack();
+      navigation.navigate("TripList");
       toast.show({
         title: "trip is created Successfully",
         status: "success",
@@ -85,8 +85,9 @@ class TripStore {
       this.trips = tempTrip;
 
       navigation.navigate("TripList");
+      this.loading = false;
       toast.show({
-        title: "trip is Deleted Successfully",
+        title: "trip is Updated Successfully",
         status: "success",
       });
     } catch (error) {

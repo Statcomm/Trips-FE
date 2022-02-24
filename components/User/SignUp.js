@@ -14,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
 const SignUp = ({ navigation }) => {
-  const [profile, setProfile] = useState();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -62,14 +61,15 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleSign = () => {
-    authstore.signUp(user, profile, navigation, toast);
+    authstore.signUp(user, navigation, toast);
   };
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading" />
+    </View>;
+  }
 
   const toast = useToast();
-
-  if (authstore.loading) {
-    <Spinner />;
-  }
 
   // const navigation = useNavigation();
   return (
@@ -111,7 +111,7 @@ const SignUp = ({ navigation }) => {
           <Icon name="image" /> Profile Image:
         </Text>
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.signBtn}>Pick a profile image</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>
@@ -134,6 +134,11 @@ const SignUp = ({ navigation }) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   signupTitle: {
     fontWeight: "bold",
     fontSize: 30,

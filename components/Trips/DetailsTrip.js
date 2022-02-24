@@ -13,14 +13,8 @@ const DetailsTrip = ({ route, navigation }) => {
   const toast = useToast();
   //TODO Spinner For fetching
   if (tripStore.loading) {
-    <View
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Spinner />
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading" />{" "}
     </View>;
   }
   return (
@@ -35,6 +29,7 @@ const DetailsTrip = ({ route, navigation }) => {
               style={styles.detailimage}
             />
             <Text style={styles.detailtitles}>{trip.title}</Text>
+            <Text style={styles.detailsubtitles}>{trip.location}</Text>
 
             {/* Owner */}
 
@@ -96,6 +91,11 @@ const DetailsTrip = ({ route, navigation }) => {
 export default observer(DetailsTrip);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   detailimage: {
     width: "95%",
     height: 300,
@@ -106,11 +106,14 @@ const styles = StyleSheet.create({
   detailtitles: {
     fontWeight: "bold",
     fontSize: 35,
-    margin: 10,
+    marginTop: 10,
+    marginLeft: 10,
   },
   detailsubtitles: {
     fontSize: 15,
     marginLeft: 15,
+    marginBottom: 10,
+    fontWeight: "bold",
   },
   detaildescription: {
     fontSize: 15,
