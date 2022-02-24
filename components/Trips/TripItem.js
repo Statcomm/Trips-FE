@@ -35,6 +35,7 @@ const TripItem = ({ trip, navigation }) => {
               uri: trip.owner.image,
             }}
           />
+
           <Text style={styles.ownerText}>{trip.owner.username}</Text>
         </View>
       </Pressable>
