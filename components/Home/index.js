@@ -12,13 +12,13 @@ const Home = ({ navigation }) => {
       style={styles.bgHome}
     >
       <View style={styles.inHome}>
-        <Text style={styles.homeTitle}>Welcome To Compass</Text>
+        <Text style={styles.homeTitle}> Travel's a Hoot!</Text>
 
         <Button
           onPress={() => navigation.replace("TripList")}
           style={styles.homebtn}
         >
-          Let's Get Started
+          <Text style={styles.traveltxt}> See the world! </Text>
         </Button>
       </View>
     </ImageBackground>
@@ -38,14 +38,21 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     alignItems: "center",
+    backgroundColor: "rgba(52, 52, 52, 0.3)",
   },
   homebtn: {
-    width: "90%",
+    width: "75%",
     height: 50,
     backgroundColor: "#8E9A69",
+    borderRadius: 20,
+  },
+  traveltxt: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
   },
   homeTitle: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
     color: "white",
     marginBottom: 100,
