@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../components/Home";
 import TripList from "../components/Trips/TripList";
 import Signin from "../components/User/Signin";
-import SignUp from "../components/User/SignUp";
 import DetailsTrip from "../components/Trips/DetailsTrip";
 import SignOutBtn from "../components/button/SignOutBtn";
 import Profile from "../components/Profile/Profile";
@@ -33,16 +32,9 @@ const StackNavigator = () => {
         component={TripList}
         options={{ headerTitle: "Our Trips" }}
       />
-      <Stack.Screen
-        name="UpdateTrip"
-        component={UpdateTripForm}
-        options={({ route }) => ({ headerTitle: "" })}
-      />
-      <Stack.Screen
-        name="UpdateProfileForm"
-        component={UpdateProfileForm}
-        options={({ route }) => ({ headerTitle: "" })}
-      />
+      <Stack.Screen name="UpdateTrip" component={UpdateTripForm} />
+      <Stack.Screen name="UpdateProfileForm" component={UpdateProfileForm} />
+      <Stack.Screen name="Signin" component={Signin} />
     </Stack.Navigator>
   );
 };

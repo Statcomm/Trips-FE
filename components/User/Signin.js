@@ -31,7 +31,16 @@ const Signin = ({ navigation }) => {
       <ScrollView>
         <View style={styles.TitleCont}>
           <Text style={styles.signupTitle}>Sign In</Text>
-          <Text style={styles.subtitle}>I already have an Account</Text>
+          <Text style={styles.subtitle}>
+            I don't have an Account
+            <Text
+              style={styles.account}
+              onPress={() => navigation.navigate("Signup")}
+            >
+              {" "}
+              Sign Up
+            </Text>
+          </Text>
         </View>
         <View style={styles.form}>
           <Text style={styles.label}>
@@ -97,5 +106,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+  },
+  account: {
+    color: "#085E7D",
+    fontWeight: "bold",
   },
 });

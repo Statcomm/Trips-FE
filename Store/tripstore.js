@@ -45,6 +45,8 @@ class TripStore {
         title: "trip is created Successfully",
         status: "success",
       });
+      profileStore.fetchProfiles();
+      this.fetchTrips();
     } catch (error) {
       console.log(error);
       toast.show({
@@ -68,6 +70,8 @@ class TripStore {
         title: "trip is Deleted Successfully",
         status: "success",
       });
+      this.fetchTrips();
+      profileStore.fetchProfiles();
     } catch (error) {
       console.log(error);
       toast.show({
@@ -90,6 +94,7 @@ class TripStore {
         title: "trip is Updated Successfully",
         status: "success",
       });
+      profileStore.fetchProfiles();
     } catch (error) {
       console.log(error);
       toast.show({

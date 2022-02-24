@@ -77,12 +77,13 @@ const SignUp = ({ navigation }) => {
       <View style={styles.TitleCont}>
         <Text style={styles.signupTitle}>Sign Up</Text>
         <Text style={styles.subtitle}>
-          I already have an{" "}
+          I don't have an Account
           <Text
             style={styles.account}
-            onPress={() => navigation.navigate("Signin")}
+            onPress={() => navigation.navigate("Signup")}
           >
-            Account{" "}
+            {" "}
+            Sign Up
           </Text>
         </Text>
       </View>

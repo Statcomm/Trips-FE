@@ -53,22 +53,22 @@ const TabNavigator = () => {
       />
 
       <Tab.Screen
-        name="Sign Up"
+        name="Sign In"
         options={{
           headerTitle: "",
-          tabBarLabel: authstore.user ? "Profile" : "Sign Up",
+          tabBarLabel: authstore.user ? "Profile" : "Sign In",
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
         }}
-        component={authstore.user ? Profile : SignUp}
+        component={authstore.user ? Profile : Signin}
       />
       <Tab.Screen
-        name="Signin"
-        component={Signin}
+        name="Signup"
+        component={SignUp}
         options={{
           headerTitle: "",
-          tabBarShowLabel: false,
+
           tabBarItemStyle: { display: "none" },
           tabBarIconStyle: { display: "none" },
         }}
