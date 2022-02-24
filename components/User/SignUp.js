@@ -111,7 +111,7 @@ const SignUp = ({ navigation }) => {
           <Icon name="image" /> Profile Image:
         </Text>
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.signBtn}>Pick a profile image</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>
