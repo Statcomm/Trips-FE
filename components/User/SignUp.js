@@ -21,6 +21,8 @@ const SignUp = ({ navigation }) => {
     image: "",
     bio: "",
   });
+  const [showPassowrd, setShowPassowrd] = useState(true);
+
   const handleUsername = (event) => {
     setUser({ ...user, username: event });
   };
@@ -76,37 +78,56 @@ const SignUp = ({ navigation }) => {
     <ScrollView>
       <View style={styles.TitleCont}>
         <Text style={styles.signupTitle}>Sign Up</Text>
-        <Text style={styles.subtitle}>
-          I don't have an Account
+        {/* <Text style={styles.subtitle}>
+          Have an account?
           <Text
             style={styles.account}
             onPress={() => navigation.navigate("Signup")}
           >
             {" "}
-            Sign Up
+            Sign In!
           </Text>
-        </Text>
+        </Text> */}
       </View>
       <View style={styles.form}>
         <Text style={styles.label}>
           <Icon name="user" /> Username:
         </Text>
-        <Input h={10} borderColor={"black"} onChangeText={handleUsername} />
+        <Input
+          h={10}
+          borderColor={"black"}
+          placeholder="Enter your Username"
+          onChangeText={handleUsername}
+        />
 
         <Text style={styles.label}>
           <Icon name="key" /> Password:
         </Text>
         <Input
-          type="password"
+          placeholder="Enter your Password"
+          type={showPassowrd ? "password" : "text"}
           h={10}
           borderColor={"black"}
           onChangeText={handlePassword}
+          InputRightElement={
+            <Icon
+              style={{ marginRight: 10 }}
+              name={showPassowrd ? "eye" : "eye-slash"}
+              size={20}
+              onPress={() => setShowPassowrd(!showPassowrd)}
+            />
+          }
         />
 
         <Text style={styles.label}>
           <Icon name="envelope" /> Email:
         </Text>
-        <Input h={10} borderColor={"black"} onChangeText={handleEmail} />
+        <Input
+          h={10}
+          placeholder="Enter your Email"
+          borderColor={"black"}
+          onChangeText={handleEmail}
+        />
 
         <Text style={styles.label}>
           <Icon name="image" /> Profile Image:
@@ -116,13 +137,14 @@ const SignUp = ({ navigation }) => {
         </TouchableOpacity>
 
         <Text style={styles.label}>
-          <Icon name="file-text" /> Description:
+          <Icon name="file-text" /> Biography:
         </Text>
         <Input
           h={120}
           multiline
           borderColor={"black"}
           onChangeText={handleDescrip}
+          placeholder="Who are you?"
         />
       </View>
       <Button style={styles.signup} onPress={handleSign}>

@@ -9,6 +9,7 @@ const Signin = ({ navigation }) => {
     username: "",
     password: "",
   });
+  const [showPassowrd, setShowPassowrd] = useState(true);
   const handleUsername = (event) => {
     setUser({ ...user, username: event });
   };
@@ -48,6 +49,7 @@ const Signin = ({ navigation }) => {
           </Text>
           <Input
             value={user.username}
+            placeholder="Enter your Username"
             h={10}
             borderColor={"black"}
             onChangeText={handleUsername}
@@ -57,11 +59,20 @@ const Signin = ({ navigation }) => {
             <Icon name="key" /> Password:
           </Text>
           <Input
-            type="password"
+            type={showPassowrd ? "password" : "text"}
+            placeholder="Enter your Password"
             h={10}
             borderColor={"black"}
             onChangeText={handlePassword}
             value={user.password}
+            InputRightElement={
+              <Icon
+                style={{ marginRight: 10 }}
+                name={showPassowrd ? "eye" : "eye-slash"}
+                size={20}
+                onPress={() => setShowPassowrd(!showPassowrd)}
+              />
+            }
           />
         </View>
         <Button style={styles.signBtn} onPress={handleSign}>

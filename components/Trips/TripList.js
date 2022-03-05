@@ -22,6 +22,7 @@ const TripList = ({ navigation }) => {
   if (tripStore.loading) {
     <Text>Loading</Text>;
   }
+
   return (
     <View>
       <View style={styles.searchBar}>

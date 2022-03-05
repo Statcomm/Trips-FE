@@ -43,13 +43,7 @@ const UpdateProfileForm = ({ route, navigation }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Image:
         </Text>
-        <Input
-          h={10}
-          borderColor={"black"}
-          onChangeText={handleImage}
-          value={profile.image}
-          multiline={true}
-        />
+        <Text style={styles.signBtn}>Grab a look</Text>
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Bio:
@@ -106,5 +100,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
+  },
+  signBtn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 6,
   },
 });

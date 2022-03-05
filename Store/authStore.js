@@ -16,6 +16,10 @@ class AuthStore {
     await AsyncStorage.setItem("myToken", token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     this.user = decode(token);
+    console.log(
+      "🚀 ~ file: authStore.js ~ line 19 ~ AuthStore ~ setUser= ~ this.user ",
+      this.user
+    );
   };
   checkForToken = async () => {
     const token = await AsyncStorage.getItem("myToken");
@@ -54,7 +58,15 @@ class AuthStore {
   signUp = async (user, navigation, toast) => {
     try {
       const resp = await api.post("/signup", user);
+      console.log(
+        "🚀 ~ file: authStore.js ~ line 57 ~ AuthStore ~ signUp= ~ user",
+        user
+      );
       await this.setUser(resp.data.token);
+      console.log(
+        "🚀 ~ file: authStore.js ~ line 62 ~ AuthStore ~ signUp= ~ resp.data.token",
+        resp.data.token
+      );
       toast.show({
         title: `Welcome ${this.user.username}`,
         status: "success",

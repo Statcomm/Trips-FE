@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Button, Spinner } from "native-base";
 
-import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  Animated,
+} from "react-native";
 
 const Home = ({ navigation }) => {
   return (
