@@ -27,15 +27,18 @@ class TripStore {
       //   formData.append(key, newTrip[key]);
       // }
 
-      const profileId = profileStore.profile.find((oneProf) => {
-        oneProf.owner._id === authstore.user.id;
-      });
+      // const profileId = profileStore.profile.find((oneProf) => {
+      //   oneProf.owner._id === authstore.user.id;
+      // });
 
       console.log(
         "🚀 ~ file: tripstore.js ~ line 35 ~ TripStore ~ createTrip= ~ newTrip",
         newTrip
       );
-      const response = await api.post(`${profileId._id}/trips`, newTrip);
+      const response = await api.post(
+        `6216282c3ce36ddb50af42cd/trips`,
+        newTrip
+      );
 
       this.trips.push(response.data);
 

@@ -19,6 +19,10 @@ const Profile = ({ route, navigation }) => {
   const userprofile = profileStore.profile.find(
     (user) => user.owner._id === ownerid
   );
+  console.log(
+    "🚀 ~ file: Profile.js ~ line 22 ~ Profile ~ userprofile",
+    userprofile
+  );
 
   if (profileStore.loading || authstore.loading) {
     <Text>Loading</Text>;
