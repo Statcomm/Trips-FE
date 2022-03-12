@@ -12,11 +12,16 @@ import {
 } from "react-native";
 import authstore from "../../Store/authStore";
 import { LinearGradient } from "expo-linear-gradient";
+import profileStore from "../../Store/profileStore";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
 const TripItem = ({ trip, navigation }) => {
+  // const ownerImage = profileStore.profile.find(
+  //   (profileId) => profileId.owner._id === trip.owner._id
+  // );
+
   return (
     <SafeAreaView>
       <Pressable
@@ -35,6 +40,7 @@ const TripItem = ({ trip, navigation }) => {
               uri: trip.owner.image,
             }}
           />
+
           <Text style={styles.ownerText}>{trip.owner.username}</Text>
         </View>
       </Pressable>

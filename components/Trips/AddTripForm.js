@@ -7,13 +7,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { observer } from "mobx-react";
-import { Input, Button, useToast } from "native-base";
+import { Input, Button, useToast, Spinner } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
 import * as ImagePicker from "expo-image-picker";
 
 const AddTripForm = ({ navigation }) => {
+  if (tripStore.loading) {
+    <View style={styles.center}>
+      <Spinner />
+    </View>;
+  }
   const [trip, setTrip] = useState({
     title: "",
     location: "",
@@ -100,14 +105,8 @@ const AddTripForm = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.photoTxtBtn}>Choose a Photo</Text>
         </TouchableOpacity>
-        {/* <Input
-          h={10}
-          borderColor={"black"}
-          onChangeText={handleImage}
-          value={trip.image}
-        /> */}
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
@@ -120,8 +119,8 @@ const AddTripForm = ({ navigation }) => {
           onChangeText={handleDescrip}
         />
       </View>
-      <Button onPress={handleSubmit} style={styles.addBtn}>
-        Add New Trip
+      <Button onPress={handleSubmit} style={styles.addtripbttn}>
+        <Text style={styles.addtriptxt}>Add New Trip </Text>
       </Button>
     </ScrollView>
   );
@@ -130,6 +129,11 @@ const AddTripForm = ({ navigation }) => {
 export default observer(AddTripForm);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   header: {
     display: "flex",
     alignItems: "center",
@@ -149,9 +153,40 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addBtn: {
-    width: "80%",
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  photoTxtBtn: {
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
+  },
+  addtripbttn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 6,
+  },
+  addtriptxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });

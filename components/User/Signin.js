@@ -9,6 +9,7 @@ const Signin = ({ navigation }) => {
     username: "",
     password: "",
   });
+  const [showPassowrd, setShowPassowrd] = useState(true);
   const handleUsername = (event) => {
     setUser({ ...user, username: event });
   };
@@ -16,19 +17,31 @@ const Signin = ({ navigation }) => {
     setUser({ ...user, password: event });
   };
   const toast = useToast();
-  if (authstore.loading) {
-    <Spinner />;
-  }
+
   const handleSign = () => {
     authstore.signIn(user, navigation, toast);
     setUser({ username: "", password: "" });
   };
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading " />
+    </View>;
+  }
   return (
     <View>
       <ScrollView>
         <View style={styles.TitleCont}>
           <Text style={styles.signupTitle}>Sign In</Text>
-          <Text style={styles.subtitle}>I already have an Account</Text>
+          <Text style={styles.subtitle}>
+            I don't have an Account
+            <Text
+              style={styles.account}
+              onPress={() => navigation.navigate("Signup")}
+            >
+              {" "}
+              Sign Up
+            </Text>
+          </Text>
         </View>
         <View style={styles.form}>
           <Text style={styles.label}>
@@ -36,6 +49,7 @@ const Signin = ({ navigation }) => {
           </Text>
           <Input
             value={user.username}
+            placeholder="Enter your Username"
             h={10}
             borderColor={"black"}
             onChangeText={handleUsername}
@@ -45,15 +59,24 @@ const Signin = ({ navigation }) => {
             <Icon name="key" /> Password:
           </Text>
           <Input
-            type="password"
+            type={showPassowrd ? "password" : "text"}
+            placeholder="Enter your Password"
             h={10}
             borderColor={"black"}
             onChangeText={handlePassword}
             value={user.password}
+            InputRightElement={
+              <Icon
+                style={{ marginRight: 10 }}
+                name={showPassowrd ? "eye" : "eye-slash"}
+                size={20}
+                onPress={() => setShowPassowrd(!showPassowrd)}
+              />
+            }
           />
         </View>
         <Button style={styles.signBtn} onPress={handleSign}>
-          Sign In
+          <Text style={styles.signintxt}> Sign In </Text>
         </Button>
       </ScrollView>
     </View>
@@ -63,6 +86,11 @@ const Signin = ({ navigation }) => {
 export default Signin;
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   signupTitle: {
     fontWeight: "bold",
     fontSize: 30,
@@ -85,9 +113,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signBtn: {
-    width: "80%",
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 5,
+  },
+  signintxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+  },
+  account: {
+    color: "#085E7D",
+    fontWeight: "bold",
   },
 });

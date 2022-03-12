@@ -7,26 +7,26 @@ import tripStore from "../../Store/tripStore";
 import ProfileTrips from "./ProfileTrips";
 import profileStore from "../../Store/profileStore";
 import { observer } from "mobx-react";
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/Entypo";
+import TripItem from "../Trips/TripItem";
 
 const Profile = ({ route, navigation }) => {
-  // const ownerid = route.params?.ownerid;
+  let ownerId = route.params?.ownerid;
+
   if (route.params?.ownerid) {
-    ownerid = route.params?.ownerid;
+    ownerId = route.params?.ownerid;
   } else {
-    ownerid = authstore.user.id;
+    ownerId = authstore.user.id;
   }
+
   const userprofile = profileStore.profile.find(
-    (user) => user.owner._id === ownerid
+    (user) => user.owner?._id === ownerId
   );
   console.log(
     "🚀 ~ file: Profile.js ~ line 22 ~ Profile ~ userprofile",
     userprofile
   );
 
-  if (profileStore.loading || authstore.loading) {
-    <Text>Loading</Text>;
-  }
   // if (ownerid) {
   //   user = ownerid;
   // } else {
@@ -45,25 +45,38 @@ const Profile = ({ route, navigation }) => {
     <ScrollView>
       <View>
         <View style={styles.toppart}>
-          <Avatar w={20} h={20} style={styles.avatar}></Avatar>
+          <Avatar
+            w={20}
+            h={20}
+            style={styles.avatar}
+            source={{ uri: userprofile.owner?.image }}
+          />
           <View style={styles.topparttext}>
-            <Text style={styles.usertitle}>{userprofile.owner.username}</Text>
-            <Text style={styles.email}>{userprofile.owner.email}</Text>
-          </View>
-
-          {authstore.user && authstore.user.id === userprofile.owner._id && (
-            <View style={styles.editprofile}>
-              <Icon.Button
-                onPress={() => {
-                  navigation.navigate("UpdateProfileForm", {
-                    userinfo: userprofile,
-                  });
-                }}
-                name="profile"
-              />
-              <Text>Edit Profile</Text>
+            <View style={styles.userediting}>
+              <Text style={styles.usertitle}>
+                {userprofile.owner?.username}
+              </Text>
+              {authstore.user && authstore.user.id === userprofile.owner?._id && (
+                <View style={styles.editprofile}>
+                  <Icon
+                    style={styles.editprofilebtn}
+                    color="gray"
+                    backgroundColor={"gray"}
+                    borderRadius={20}
+                    size={22}
+                    onPress={() => {
+                      navigation.navigate("UpdateProfileForm", {
+                        userinfo: userprofile,
+                      });
+                    }}
+                    name="cog"
+                  />
+                  {/* <Text>Edit Profile</Text> */}
+                </View>
+              )}
             </View>
-          )}
+            <Text style={styles.email}>{userprofile.owner?.email}</Text>
+          </View>
         </View>
         <View style={styles.divider}>
           <Text style={styles.biotitle}>About me:</Text>
@@ -124,5 +137,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
-  editprofile: {},
+  editprofile: {
+    display: "flex",
+    alignContent: "flex-end",
+    justifyContent: "center",
+    borderRadius: 20,
+    width: 50,
+    marginLeft: 5,
+  },
+  editprofilebtn: {
+    alignContent: "center",
+    borderRadius: 20,
+  },
+  userediting: {
+    display: "flex",
+    flexDirection: "row",
+  },
 });

@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { observer } from "mobx-react";
 import { Input, Button, useToast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import tripStore from "../../Store/tripStore";
+import * as ImagePicker from "expo-image-picker";
 
 const UpdateTripForm = ({ route, navigation }) => {
   const trip2 = route.params.tripId;
@@ -30,6 +38,29 @@ const UpdateTripForm = ({ route, navigation }) => {
     setTrip({ ...trip, description: event });
   };
   const toast = useToast();
+
+  const openImagePickerAsync = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync();
+
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Assume "photo" is the name of the form field the server expects
+    setTrip({ ...trip, image: localUri });
+  };
 
   const handleSubmit = () => {
     tripStore.updateTrip(trip, navigation, toast);
@@ -71,13 +102,18 @@ const UpdateTripForm = ({ route, navigation }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Image:
         </Text>
-        <Input
+
+        <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
+          <Text style={styles.photoTxtBtn}>Choose a Photo</Text>
+        </TouchableOpacity>
+
+        {/* <Input
           h={10}
           borderColor={"black"}
           onChangeText={handleImage}
           value={trip.image}
           multiline={true}
-        />
+        /> */}
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Description:
@@ -89,8 +125,8 @@ const UpdateTripForm = ({ route, navigation }) => {
           onChangeText={handleDescrip}
         />
       </View>
-      <Button onPress={handleSubmit} style={styles.addBtn}>
-        Update Trip
+      <Button onPress={handleSubmit} style={styles.updtripbttn}>
+        <Text style={styles.updtriptxt}> Update Trip </Text>
       </Button>
     </ScrollView>
   );
@@ -118,9 +154,40 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addBtn: {
-    width: "80%",
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  photoTxtBtn: {
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 6,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
+  },
+  updtripbttn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 6,
+  },
+  updtriptxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });

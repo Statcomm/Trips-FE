@@ -6,7 +6,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import authstore from "../../Store/authStore";
 import profileStore from "../../Store/profileStore";
 
-const UpdateProfileForm = ({ route }) => {
+const UpdateProfileForm = ({ route, navigation }) => {
+  if (profileStore.loading) {
+    <Text>Loading</Text>;
+  }
   const profile2 = route.params.userinfo;
 
   const [profile, setProfile] = useState({
@@ -24,7 +27,7 @@ const UpdateProfileForm = ({ route }) => {
   const toast = useToast();
 
   const handleSubmit = () => {
-    profileStore.updateProfile(profile);
+    profileStore.updateProfile(profile, navigation);
     setProfile({
       image: "",
       bio: "",
@@ -40,13 +43,7 @@ const UpdateProfileForm = ({ route }) => {
         <Text style={styles.label}>
           <Icon name="image" /> Image:
         </Text>
-        <Input
-          h={10}
-          borderColor={"black"}
-          onChangeText={handleImage}
-          value={profile.image}
-          multiline={true}
-        />
+        <Text style={styles.signBtn}>Grab a look</Text>
 
         <Text style={styles.label}>
           <Icon name="file-text" /> Bio:
@@ -58,8 +55,8 @@ const UpdateProfileForm = ({ route }) => {
           onChangeText={handleBio}
         />
       </View>
-      <Button onPress={handleSubmit} style={styles.addBtn}>
-        Update Profile
+      <Button onPress={handleSubmit} style={styles.updprofbttn}>
+        <Text style={styles.updproftxt}> Update Profile </Text>
       </Button>
     </ScrollView>
   );
@@ -86,10 +83,35 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "bold",
   },
-  addBtn: {
-    width: "80%",
+  updprofbttn: {
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 40,
+    marginTop: 20,
+    textAlign: "center",
+    fontSize: 25,
+    paddingTop: 6,
+  },
+  updproftxt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+  },
+  signBtn: {
+    alignSelf: "center",
+    margin: 20,
+    backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 6,
   },
 });

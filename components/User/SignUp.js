@@ -14,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
 const SignUp = ({ navigation }) => {
-  const [profile, setProfile] = useState();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -22,6 +21,8 @@ const SignUp = ({ navigation }) => {
     image: "",
     bio: "",
   });
+  const [showPassowrd, setShowPassowrd] = useState(true);
+
   const handleUsername = (event) => {
     setUser({ ...user, username: event });
   };
@@ -62,70 +63,92 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleSign = () => {
-    authstore.signUp(user, profile, navigation, toast);
+    authstore.signUp(user, navigation, toast);
   };
+  if (authstore.loading) {
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading" />
+    </View>;
+  }
 
   const toast = useToast();
-
-  if (authstore.loading) {
-    <Spinner />;
-  }
 
   // const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={styles.TitleCont}>
         <Text style={styles.signupTitle}>Sign Up</Text>
-        <Text style={styles.subtitle}>
-          I already have an{" "}
+        {/* <Text style={styles.subtitle}>
+          Have an account?
           <Text
             style={styles.account}
-            onPress={() => navigation.navigate("Signin")}
+            onPress={() => navigation.navigate("Signup")}
           >
-            Account{" "}
+            {" "}
+            Sign In!
           </Text>
-        </Text>
+        </Text> */}
       </View>
       <View style={styles.form}>
         <Text style={styles.label}>
           <Icon name="user" /> Username:
         </Text>
-        <Input h={10} borderColor={"black"} onChangeText={handleUsername} />
+        <Input
+          h={10}
+          borderColor={"black"}
+          placeholder="Enter your Username"
+          onChangeText={handleUsername}
+        />
 
         <Text style={styles.label}>
           <Icon name="key" /> Password:
         </Text>
         <Input
-          type="password"
+          placeholder="Enter your Password"
+          type={showPassowrd ? "password" : "text"}
           h={10}
           borderColor={"black"}
           onChangeText={handlePassword}
+          InputRightElement={
+            <Icon
+              style={{ marginRight: 10 }}
+              name={showPassowrd ? "eye" : "eye-slash"}
+              size={20}
+              onPress={() => setShowPassowrd(!showPassowrd)}
+            />
+          }
         />
 
         <Text style={styles.label}>
           <Icon name="envelope" /> Email:
         </Text>
-        <Input h={10} borderColor={"black"} onChangeText={handleEmail} />
+        <Input
+          h={10}
+          placeholder="Enter your Email"
+          borderColor={"black"}
+          onChangeText={handleEmail}
+        />
 
         <Text style={styles.label}>
           <Icon name="image" /> Profile Image:
         </Text>
         <TouchableOpacity onPress={openImagePickerAsync} style={styles.addBtn}>
-          <Text>Pick</Text>
+          <Text style={styles.signBtn}>Grab a look</Text>
         </TouchableOpacity>
 
         <Text style={styles.label}>
-          <Icon name="file-text" /> Description:
+          <Icon name="file-text" /> Biography:
         </Text>
         <Input
           h={120}
           multiline
           borderColor={"black"}
           onChangeText={handleDescrip}
+          placeholder="Who are you?"
         />
       </View>
-      <Button style={styles.signBtn} onPress={handleSign}>
-        Sign Up
+      <Button style={styles.signup} onPress={handleSign}>
+        <Text style={styles.signuptxt}> Sign Up </Text>
       </Button>
     </ScrollView>
   );
@@ -134,6 +157,11 @@ const SignUp = ({ navigation }) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   signupTitle: {
     fontWeight: "bold",
     fontSize: 30,
@@ -160,9 +188,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signBtn: {
-    width: "80%",
     alignSelf: "center",
     margin: 20,
     backgroundColor: "#8E9A69",
+    color: "white",
+    borderRadius: 20,
+    width: "60%",
+    height: 35,
+    marginTop: 5,
+    textAlign: "center",
+    fontSize: 20,
+    paddingTop: 3,
+  },
+  addBtn: {
+    display: "flex",
+    alignContent: "center",
+    paddingTop: 10,
+    alignItems: "flex-end",
+  },
+  signup: {
+    backgroundColor: "#8E9A69",
+    fontSize: 20,
+    padding: 10,
+    marginTop: 20,
+  },
+  signuptxt: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
   },
 });

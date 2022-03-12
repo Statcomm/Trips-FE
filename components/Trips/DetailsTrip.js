@@ -13,104 +13,103 @@ const DetailsTrip = ({ route, navigation }) => {
   const toast = useToast();
   //TODO Spinner For fetching
   if (tripStore.loading) {
-    <View
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Spinner />
+    <View style={styles.center}>
+      <Spinner accessibilityLabel="Loading" />{" "}
     </View>;
   }
   return (
-    <SafeAreaView>
-      <Pressable>
-        <ScrollView>
-          <View>
-            <Image
-              source={{
-                uri: trip.image,
-              }}
-              style={styles.detailimage}
-            />
-            <Text style={styles.detailtitles}>{trip.title}</Text>
+    <Pressable>
+      <ScrollView>
+        <View>
+          <Image
+            source={{
+              uri: trip.image,
+            }}
+            style={styles.detailimage}
+          />
+          <Text style={styles.detailtitles}>{trip.title}</Text>
+          <Text style={styles.detailsubtitles}>{trip.location}</Text>
 
-            {/* Owner */}
+          {/* Owner */}
 
-            <View style={styles.detailsavatar}>
-              <Pressable
-                style={styles.detailsavatar}
-                onPress={() =>
-                  navigation.navigate("Profile", {
-                    ownerid: trip.owner._id,
-                  })
-                }
-              >
-                <Avatar
-                  borderWidth={1}
-                  source={{
-                    uri: trip.owner.image,
-                  }}
-                />
-                <Text style={styles.detailsubtitles}>
-                  {trip.owner.username}
-                </Text>
-              </Pressable>
-              {authstore.user && authstore.user.id === trip.owner._id && (
-                <View style={styles.addUpdate}>
-                  <View style={styles.btn}>
-                    <Icon.Button
-                      onPress={() =>
-                        tripStore.deleteTrip(trip._id, navigation, toast)
-                      }
-                      marginLeft={5}
-                      name="delete"
-                      backgroundColor="red"
-                    />
-                  </View>
-
-                  <View style={styles.btn}>
-                    <Icon.Button
-                      onPress={() => {
-                        navigation.navigate("UpdateTrip", { tripId: trip });
-                      }}
-                      marginLeft={5}
-                      name="edit"
-                      backgroundColor="green"
-                    />
-                  </View>
+          <View style={styles.detailsavatar}>
+            <Pressable
+              style={styles.detailsavatar}
+              onPress={() =>
+                navigation.navigate("Profile", {
+                  ownerid: trip.owner._id,
+                })
+              }
+            >
+              <Avatar
+                borderWidth={1}
+                source={{
+                  uri: trip.owner.image,
+                }}
+              />
+              <Text style={styles.detailsubtitles}>{trip.owner.username}</Text>
+            </Pressable>
+            {authstore.user && authstore.user.id === trip.owner._id && (
+              <View style={styles.addUpdate}>
+                <View style={styles.btn}>
+                  <Icon.Button
+                    onPress={() =>
+                      tripStore.deleteTrip(trip._id, navigation, toast)
+                    }
+                    marginLeft={5}
+                    name="delete"
+                    backgroundColor="#B94040"
+                  />
                 </View>
-              )}
-            </View>
 
-            {/* Description */}
-            <Text style={styles.detaildescription}>{trip.description}</Text>
+                <View style={styles.btn}>
+                  <Icon.Button
+                    onPress={() => {
+                      navigation.navigate("UpdateTrip", { tripId: trip });
+                    }}
+                    marginLeft={5}
+                    name="edit"
+                    backgroundColor="#909A6D"
+                  />
+                </View>
+              </View>
+            )}
           </View>
-        </ScrollView>
-      </Pressable>
-    </SafeAreaView>
+
+          {/* Description */}
+          <Text style={styles.detaildescription}>{trip.description}</Text>
+        </View>
+      </ScrollView>
+    </Pressable>
   );
 };
 
 export default observer(DetailsTrip);
 
 const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   detailimage: {
     width: "95%",
     height: 300,
     borderRadius: 20,
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 8,
   },
   detailtitles: {
     fontWeight: "bold",
     fontSize: 35,
-    margin: 10,
+    marginTop: 10,
+    marginLeft: 10,
   },
   detailsubtitles: {
     fontSize: 15,
     marginLeft: 15,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
   detaildescription: {
     fontSize: 15,
@@ -128,12 +127,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 20,
+    marginTop: 10,
+    marginLeft: 7,
   },
   addUpdate: {
     display: "flex",
     flexDirection: "row",
-    marginLeft: 120,
+    marginLeft: 160,
+    marginTop: 10,
   },
   btn: {
     marginRight: 4,
